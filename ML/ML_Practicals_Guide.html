@@ -1,0 +1,1978 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>ML Practicals - Complete Exam Guide</title>
+<style>
+    @page {
+        size: A4 portrait;
+        margin: 1.5cm 1.2cm 1.5cm 1.2cm;
+        @top-right {
+            content: "ML Practicals - Complete Exam Guide";
+            font-size: 8pt;
+            color: #666;
+            font-family: Helvetica, Arial, sans-serif;
+        }
+        @bottom-center {
+            content: "Page " counter(page);
+            font-size: 8pt;
+            color: #888;
+            font-family: Helvetica, Arial, sans-serif;
+        }
+    }
+    body {
+        font-family: Helvetica, Arial, sans-serif;
+        font-size: 9.5pt;
+        line-height: 1.45;
+        color: #222;
+    }
+    h1 {
+        color: #0d47a1;
+        font-size: 19pt;
+        border-bottom: 2.5px solid #0d47a1;
+        padding-bottom: 5px;
+        margin-top: 0;
+        margin-bottom: 12px;
+    }
+    h2 {
+        color: #1b5e20;
+        font-size: 14pt;
+        border-bottom: 1.5px solid #1b5e20;
+        padding-bottom: 4px;
+        margin-top: 18px;
+        margin-bottom: 8px;
+        page-break-before: always;
+    }
+    h2:first-of-type {
+        page-break-before: avoid;
+    }
+    h3 {
+        color: #4a148c;
+        font-size: 11pt;
+        margin-top: 12px;
+        margin-bottom: 4px;
+    }
+    h4 {
+        color: #333;
+        font-size: 10pt;
+        margin-top: 8px;
+        margin-bottom: 2px;
+    }
+    p {
+        margin: 4px 0 6px 0;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 8px 0 12px 0;
+        font-size: 8.5pt;
+    }
+    th {
+        background-color: #e3f2fd;
+        color: #0d47a1;
+        border: 0.5px solid #90caf9;
+        padding: 5px 6px;
+        text-align: left;
+        font-weight: bold;
+    }
+    td {
+        border: 0.5px solid #ddd;
+        padding: 4px 6px;
+        vertical-align: top;
+    }
+    tr:nth-child(even) td {
+        background-color: #fbfbfb;
+    }
+    code {
+        background-color: #f3f3f3;
+        color: #b71c1c;
+        font-family: Courier, monospace;
+        font-size: 8.5pt;
+        padding: 1px 3px;
+    }
+    pre {
+        background-color: #263238;
+        color: #eceff1;
+        font-family: Courier, monospace;
+        font-size: 8pt;
+        padding: 8px;
+        border-radius: 4px;
+        margin: 6px 0;
+    }
+    pre code {
+        background: transparent;
+        color: #eceff1;
+        padding: 0;
+    }
+    .diagram-box {
+        background-color: #f3e5f5;
+        border: 1px solid #ce93d8;
+        border-radius: 4px;
+        padding: 6px 10px;
+        margin: 8px 0;
+        font-size: 8.5pt;
+    }
+    .diagram-box ul {
+        margin: 3px 0 3px 15px;
+        padding: 0;
+    }
+    .diagram-box li {
+        margin: 2px 0;
+    }
+    .alert-box {
+        padding: 6px 10px;
+        margin: 8px 0;
+        border-radius: 3px;
+        font-size: 8.5pt;
+    }
+    .math-block {
+        background: #fafafa;
+        border-left: 3px solid #78909c;
+        padding: 4px 8px;
+        margin: 5px 0;
+        font-family: Georgia, serif;
+        font-size: 9pt;
+        color: #263238;
+    }
+    hr {
+        border: none;
+        border-top: 0.5px solid #ccc;
+        margin: 12px 0;
+    }
+</style>
+</head>
+<body>
+<h1>🎯 ML Practicals — Complete Exam Guide</h1>
+<div class="alert-box" style="border-left: 4px solid #388e3c; background: #e8f5e9;"><strong>[TIP]</strong> > Read each practical's **"What's Happening"** diagram first, then the simple explanation, then glance at the code walkthrough. That's enough to answer any viva question confidently.</div>
+
+<hr />
+<h2>Practical 1 — PCA (Principal Component Analysis) on Wine 🍷</h2>
+<h3>What is PCA in one line?</h3>
+<p><strong>PCA squishes many columns into fewer columns while keeping the most important information.</strong></p>
+<p>Think of it like this: you have 13 measurements about wine (alcohol, color, etc.). PCA says <em>"I can describe most of this info using just 2 new numbers instead of 13."</em></p>
+<hr />
+<h3>📘 What is Variance?</h3>
+<p>Variance = <strong>how spread out</strong> the numbers are.</p>
+<table>
+<thead>
+<tr>
+<th>Data</th>
+<th>Spread</th>
+<th>Variance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[5, 5, 5, 5]</td>
+<td>No spread at all</td>
+<td><strong>0</strong> (boring, no info)</td>
+</tr>
+<tr>
+<td>[1, 3, 7, 9]</td>
+<td>Very spread out</td>
+<td><strong>High</strong> (lots of info!)</td>
+</tr>
+</tbody>
+</table>
+<p>PCA looks for directions where data is <strong>most spread</strong> (most variance) because that's where the <strong>most information</strong> lives.</p>
+<hr />
+<h3>📘 What is a Covariance Matrix?</h3>
+<p>It's a table that shows <strong>how features move together</strong>:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Alcohol</th>
+<th>Color</th>
+<th>Hue</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Alcohol</strong></td>
+<td>var(Alcohol)</td>
+<td>cov(Alc,Color)</td>
+<td>cov(Alc,Hue)</td>
+</tr>
+<tr>
+<td><strong>Color</strong></td>
+<td>cov(Color,Alc)</td>
+<td>var(Color)</td>
+<td>cov(Color,Hue)</td>
+</tr>
+<tr>
+<td><strong>Hue</strong></td>
+<td>cov(Hue,Alc)</td>
+<td>cov(Hue,Color)</td>
+<td>var(Hue)</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Diagonal</strong> = variance of each feature</li>
+<li><strong>Off-diagonal</strong> = how two features move together (positive = together, negative = opposite)</li>
+<li>PCA decomposes this matrix to find the best directions</li>
+</ul>
+<hr />
+<h3>📘 What are Eigenvectors and Eigenvalues?</h3>
+<p>When PCA breaks down the covariance matrix:</p>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>What it is</th>
+<th>Analogy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Eigenvector</strong></td>
+<td>The <strong>direction</strong> of a Principal Component</td>
+<td>Which way to point the camera</td>
+</tr>
+<tr>
+<td><strong>Eigenvalue</strong></td>
+<td>How much <strong>variance</strong> is along that direction</td>
+<td>How interesting the view is</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Bigger eigenvalue = more important direction = keep it</li>
+<li>Smaller eigenvalue = less info = can drop it</li>
+</ul>
+<hr />
+<h3>📘 What is Explained Variance Ratio?</h3>
+<p><div class="math-block"><em>\text{Explained Variance Ratio of PC}_i = \frac{\text{Eigenvalue}_i}{\text{Sum of all Eigenvalues}}</em></div></p>
+<table>
+<thead>
+<tr>
+<th>PC</th>
+<th>Eigenvalue (variance)</th>
+<th>Ratio</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PC1</td>
+<td>Biggest</td>
+<td><strong>0.362 (36.2%)</strong></td>
+<td>This direction holds 36.2% of all info</td>
+</tr>
+<tr>
+<td>PC2</td>
+<td>Next</td>
+<td><strong>0.192 (19.2%)</strong></td>
+<td>Another 19.2%</td>
+</tr>
+<tr>
+<td>PC1+PC2</td>
+<td>—</td>
+<td><strong>55.41%</strong></td>
+<td>Together they capture 55% of everything</td>
+</tr>
+<tr>
+<td>All 13</td>
+<td>—</td>
+<td><strong>100%</strong></td>
+<td>No info lost</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Rule of thumb:</strong> Keep enough PCs to reach <strong>90–95%</strong> cumulative variance.</p>
+<hr />
+<h3>📘 What is Dimensionality Reduction?</h3>
+<p>Going from <strong>many features → fewer features</strong> while losing as little info as possible.</p>
+<div class="diagram-box"><strong>Flow Diagram:</strong><ul><li>A13 features &bull; hard to visualize &bull; hard to process  &rarr;  PCA  B2 features &bull; easy to plot! &bull; faster models</li></ul></div>
+
+<p><strong>Why do it?</strong><br />
+- Can't plot 13 dimensions on paper<br />
+- Removes noise and redundant features<br />
+- Speeds up other ML algorithms<br />
+- Reduces overfitting</p>
+<hr />
+<h3>📘 PCA vs LDA — Key Difference</h3>
+<div class="diagram-box"><strong>Flow Diagram:</strong><ul><li>P1Ignores labels completely</li><li>P2Finds direction of MAX VARIANCE</li><li>P3Can give any number of PCs</li><li>L1USES labels</li><li>L2Finds direction of MAX CLASS SEPARATION</li><li>L3Max components = classes − 1</li></ul></div>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>PCA</th>
+<th>LDA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Uses labels?</strong></td>
+<td>❌ No (unsupervised)</td>
+<td>✅ Yes (supervised)</td>
+</tr>
+<tr>
+<td><strong>Goal</strong></td>
+<td>Max total variance</td>
+<td>Max between-class / within-class separation</td>
+</tr>
+<tr>
+<td><strong>Max components</strong></td>
+<td>= number of features</td>
+<td>= number of classes − 1</td>
+</tr>
+<tr>
+<td><strong>Use when</strong></td>
+<td>Compress / visualize</td>
+<td>Classify</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>The Pipeline</h3>
+<div class="diagram-box"><strong>Flow Diagram:</strong><ul><li>A🍷 Wine Data &bull; 13 features &bull; 178 samples  &rarr;  BStandardScaler &bull; mean=0, std=1</li><li>B  &rarr;  CPCA &bull; Covariance → Eigenvectors &bull; Find best directions</li><li>C  &rarr;  DKeep Top 2 PCs &bull; 55% info retained</li><li>D  &rarr;  E📊 2D Scatter Plot &bull; 3 wine classes &bull; separated!</li></ul></div>
+
+<h3>Step-by-Step Code Walkthrough</h3>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Code</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><code>pd.read_csv(url)</code></td>
+<td>Load 178 wines × 14 columns</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>y = df.iloc[:, 0]</code>, <code>X = df.iloc[:, 1:]</code></td>
+<td>Split: column 0 = label (1/2/3), rest = features</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>StandardScaler().fit_transform(X)</code></td>
+<td>Scale all features to mean=0, std=1</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>PCA().fit(X_scaled)</code></td>
+<td>Fit all 13 PCs, see how much variance each holds</td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>PCA(n_components=2).fit_transform()</code></td>
+<td>Keep only top 2 PCs → shape becomes (178, 2)</td>
+</tr>
+<tr>
+<td>6</td>
+<td><code>plt.scatter(...)</code></td>
+<td>Plot PC1 vs PC2, colored by wine class</td>
+</tr>
+</tbody>
+</table>
+<h3>📘 What does <code>fit</code> vs <code>transform</code> vs <code>fit_transform</code> mean?</h3>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>fit(X)</code></td>
+<td><strong>Learn</strong> the parameters (mean, std, eigenvectors) from data</td>
+</tr>
+<tr>
+<td><code>transform(X)</code></td>
+<td><strong>Apply</strong> those learned parameters to data</td>
+</tr>
+<tr>
+<td><code>fit_transform(X)</code></td>
+<td><strong>Both</strong> in one step — learn AND apply</td>
+</tr>
+</tbody>
+</table>
+<p>On <strong>new data</strong> you only call <code>transform()</code> (don't re-learn!).</p>
+<h3>Quick Viva Answers</h3>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Answer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Supervised or Unsupervised?</td>
+<td><strong>Unsupervised</strong> — never uses labels</td>
+</tr>
+<tr>
+<td>What are eigenvalues?</td>
+<td>The amount of variance along each PC direction</td>
+</tr>
+<tr>
+<td>What are eigenvectors?</td>
+<td>The <strong>directions</strong> of the principal components</td>
+</tr>
+<tr>
+<td>What is explained variance ratio?</td>
+<td>Eigenvalue / sum of all eigenvalues — tells how much info each PC holds</td>
+</tr>
+<tr>
+<td>PCA vs LDA?</td>
+<td>PCA = unsupervised, max variance. LDA = supervised, max class separation</td>
+</tr>
+<tr>
+<td>Why scale before PCA?</td>
+<td>PCA follows variance; big features (Proline ~1000) would dominate small ones (Hue ~1)</td>
+</tr>
+<tr>
+<td>Why no train/test split?</td>
+<td>We're only transforming &amp; visualizing, not predicting</td>
+</tr>
+<tr>
+<td>Shape of X_pca?</td>
+<td><strong>(178, 2)</strong> — 178 samples, 2 principal components</td>
+</tr>
+<tr>
+<td>How many PCs for 95%?</td>
+<td>About <strong>10 PCs</strong></td>
+</tr>
+<tr>
+<td>Are PCs correlated?</td>
+<td><strong>No</strong> — they are orthogonal (perpendicular), meaning uncorrelated</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>Practical 2 — Regression (Uber Fare Prediction) 🚕</h2>
+<h3>What is Regression in one line?</h3>
+<p><strong>Predict a continuous number (fare in <code>) from input features (distance, time, etc.).</strong></p>
+<hr />
+<h3>📘 What is Linear Regression?</h3>
+<p>It fits a <strong>straight line</strong> (or flat surface in many dimensions) through the data:</p>
+<p><div class="math-block"><em>y = w_1 x_1 + w_2 x_2 + \ldots + w_n x_n + b</em></div></p>
+<ul>
+<li>Each </code>w<code> (weight) says <strong>how much</strong> that feature affects the fare</li>
+<li></code>b<code> (bias/intercept) is the starting fare when all features = 0</li>
+<li>It finds the best weights by <strong>minimizing the sum of squared errors</strong> (called Ordinary Least Squares / OLS)</li>
+</ul>
+<p><strong>Simple example:</strong> If distance has weight 2.5 and bias is 3:</p>
+<blockquote>
+<p>fare = 2.5 × distance + 3<br />
+A 4 km ride → 2.5 × 4 + 3 = <strong>\</code>13</strong></p>
+</blockquote>
+<hr />
+<h3>📘 What is Ridge Regression (L2)?</h3>
+<p>Same as Linear but adds a <strong>penalty on large weights</strong>:</p>
+<p><div class="math-block"><em>\text{Loss} = \text{Squared Errors} + \alpha \times \sum w_i^2</em></div></p>
+<ul>
+<li><strong>α (alpha = 1.0)</strong> controls penalty strength</li>
+<li>It <strong>shrinks</strong> all weights toward zero, but <strong>never makes them exactly zero</strong></li>
+<li>Good when features are <strong>correlated</strong> with each other (multicollinearity)</li>
+</ul>
+<p><strong>Analogy:</strong> <em>"You can use all features, but keep your weights small and humble."</em></p>
+<hr />
+<h3>📘 What is Lasso Regression (L1)?</h3>
+<p>Adds a <strong>different penalty</strong> — on the absolute values:</p>
+<p><div class="math-block"><em>\text{Loss} = \text{Squared Errors} + \alpha \times \sum |w_i|</em></div></p>
+<ul>
+<li><strong>α (alpha = 0.01)</strong> — small here because Lasso is aggressive</li>
+<li>It can push some weights to <strong>EXACTLY zero</strong> → those features are dropped</li>
+<li>So Lasso does <strong>automatic feature selection</strong>!</li>
+</ul>
+<p><strong>Analogy:</strong> <em>"You must keep weights small, and some features deserve to be fired entirely."</em></p>
+<hr />
+<h3>🔺 Linear vs Ridge vs Lasso — Side by Side</h3>
+<div class="diagram-box"><strong>Flow Diagram:</strong><ul><li>ALinear Regression &bull; y = w₁x₁ + w₂x₂ + ... + b &bull; ❌ No penalty &bull; ⚠️ Can overfit  &rarr;  DAll get R² ≈ 0.49 &bull; RMSE ≈ <code>2.95 &bull; similar here because &bull; few features</li><li>BRidge L2 &bull; Loss + α × Σw² &bull; ✅ Shrinks ALL weights &bull; ✅ Keeps all features  &rarr;  D</li><li>CLasso L1 &bull; Loss + α × Σ w  &bull; ✅ Shrinks weights &bull; 🔥 Can ZERO OUT features  &rarr;  D</li></ul></div>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Linear</th>
+<th>Ridge (L2)</th>
+<th>Lasso (L1)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Penalty</strong></td>
+<td>None</td>
+<td>α × Σw²</td>
+<td>α × Σ|w|</td>
+</tr>
+<tr>
+<td><strong>Weights</strong></td>
+<td>Can be big</td>
+<td>All shrunk, none zero</td>
+<td>Some become <strong>exactly 0</strong></td>
+</tr>
+<tr>
+<td><strong>Feature selection?</strong></td>
+<td>❌ No</td>
+<td>❌ No</td>
+<td>✅ Yes</td>
+</tr>
+<tr>
+<td><strong>Best when</strong></td>
+<td>Simple, few features</td>
+<td>Correlated features</td>
+<td>Want to drop useless features</td>
+</tr>
+<tr>
+<td><strong>Our α</strong></td>
+<td>—</td>
+<td>1.0</td>
+<td>0.01</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>📘 What is R² (R-squared)?</h3>
+<p><div class="math-block"><em>R^2 = 1 - \frac{\text{Model's errors}}{\text{Errors if you just predicted the mean}}</em></div></p>
+<table>
+<thead>
+<tr>
+<th>R² Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1.0</strong></td>
+<td>Perfect — model explains 100% of variation</td>
+</tr>
+<tr>
+<td><strong>0.49</strong> (ours)</td>
+<td>Model explains 49% — rest is unknown factors (traffic, surge)</td>
+</tr>
+<tr>
+<td><strong>0.0</strong></td>
+<td>Model is no better than just saying "average fare" every time</td>
+</tr>
+<tr>
+<td><strong>Negative</strong></td>
+<td>Model is WORSE than the average — something is very wrong</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Simple analogy:</strong> If you have a test out of 100, R² = 0.49 means your model scored 49/100. Not great, but it's learning <em>something</em>.</p>
+<hr />
+<h3>📘 What is RMSE (Root Mean Square Error)?</h3>
+<p><div class="math-block"><em>\text{RMSE} = \sqrt{\frac{1}{n}\sum(y_{\text{actual}} - y_{\text{predicted}})^2}</em></div></p>
+<p>Step by step:<br />
+1. For each ride: (actual fare − predicted fare)² → square the error<br />
+2. Take the <strong>mean</strong> of all squared errors → that's MSE<br />
+3. Take the <strong>square root</strong> → that's RMSE</p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Our Value</th>
+<th>Unit</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MSE</td>
+<td>~8.73</td>
+<td>dollars²</td>
+<td>Hard to interpret (squared dollars??)</td>
+</tr>
+<tr>
+<td><strong>RMSE</strong></td>
+<td><strong>\</code>2.95</strong></td>
+<td><strong>dollars</strong></td>
+<td>On average, prediction is off by about <strong>\<code>3</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Why RMSE not MSE?</strong> → RMSE is in the <strong>same unit</strong> as the target (dollars), so you can directly say <em>"the model is off by \</code>3 on average."</em></p>
+<hr />
+<h3>📘 What is the Haversine Formula?</h3>
+<p>It calculates the <strong>real-world distance</strong> between two points on Earth using latitude/longitude:</p>
+<div class="diagram-box"><strong>Flow Diagram:</strong><ul><li>A📍 Pickup &bull; lat1, lon1  &rarr;  H🌍 Haversine Formula &bull; Accounts for Earth's &bull; curvature sphere</li><li>B📍 Dropoff &bull; lat2, lon2  &rarr;  H</li><li>H  &rarr;  D📏 Distance &bull; in km</li></ul></div>
+
+<p><strong>Why do we need it?</strong><br />
+- Raw lat/lon coordinates (like 40.7, −73.9) have <strong>near-zero correlation</strong> with fare<br />
+- But <strong>distance</strong> has <strong>0.72 correlation</strong> with fare — much more useful!<br />
+- A linear model can't figure out distance from 4 separate coordinates on its own<br />
+- So we <strong>engineer</strong> this feature using the formula</p>
+<p><strong>The formula uses:</strong> <code>sin</code>, <code>cos</code>, <code>arcsin</code>, and Earth's radius (6371 km) to account for the curvature of the Earth.</p>
+<hr />
+<h3>The Full Pipeline</h3>
+<div class="diagram-box"><strong>Flow Diagram:</strong><ul><li>A📂 Uber CSV &bull; 200K rides  &rarr;  B🧹 Clean &bull; Drop NaN &bull; Extract hour, year</li><li>B  &rarr;  C📏 Engineer &bull; Haversine distance &bull; from lat/lon</li><li>C  &rarr;  D✂️ Remove Outliers &bull; IQR rule on fare &bull; Sanity limits</li><li>D  &rarr;  E📊 Correlation &bull; Heatmap</li><li>E  &rarr;  F🔀 Split &bull; 80% train &bull; 20% test</li><li>F  &rarr;  G🤖 Train 3 Models &bull; Linear, Ridge, Lasso</li><li>G  &rarr;  H📈 Compare &bull; R² and RMSE</li></ul></div>
+
+<h3>Quick Viva Answers</h3>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Answer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Regression vs Classification?</td>
+<td>Regression → continuous number. Classification → category</td>
+</tr>
+<tr>
+<td>L1 vs L2 — which does feature selection?</td>
+<td><strong>L1 (Lasso)</strong> — can push weights to exactly zero</td>
+</tr>
+<tr>
+<td>Can R² be negative?</td>
+<td>Yes! If model is worse than just predicting the mean</td>
+</tr>
+<tr>
+<td>Why RMSE not MSE?</td>
+<td>RMSE is in <strong>same units</strong> as target (dollars), easier to interpret</td>
+</tr>
+<tr>
+<td>Why all 3 models score similar?</td>
+<td>Few features, weak correlations → regularization adds no benefit</td>
+</tr>
+<tr>
+<td>What is multicollinearity?</td>
+<td>Features highly correlated with each other → weights become unstable → Ridge helps</td>
+</tr>
+<tr>
+<td>Why Lasso α=0.01 and not 1.0?</td>
+<td>Lasso is aggressive — high α would zero out everything and underfit</td>
+</tr>
+<tr>
+<td>Why create distance_km?</td>
+<td>Raw lat/lon have ~0 correlation with fare, but distance has <strong>0.72</strong> — much better</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>Practical 3 — SVM (Support Vector Machine) on Digits ✋</h2>
+<h3>What is SVM in one line?</h3>
+<p><strong>Find the line (hyperplane) that separates classes with the WIDEST gap (margin).</strong></p>
+<hr />
+<h3>📘 What is a Hyperplane?</h3>
+<p>A <strong>decision boundary</strong> that separates classes:<br />
+- In 2D → it's a <strong>line</strong><br />
+- In 3D → it's a <strong>flat plane</strong><br />
+- In 64D (our digits) → it's a <strong>64-dimensional surface</strong> (hard to imagine, but math handles it!)</p>
+<hr />
+<h3>📘 What is Margin?</h3>
+<p>The <strong>gap/distance</strong> between the hyperplane and the closest points of each class.</p>
+<div class="diagram-box"><strong>Flow Diagram:</strong><ul><li>B1Class A ●●●</li><li>B2──── boundary ────</li><li>B3Class B ○○○</li><li>G1Class A ●●●</li><li>G2[]</li><li>G3══ WIDE GAP ══</li><li>G4[]</li><li>G5Class B ○○○</li></ul></div>
+
+<p>SVM picks the boundary with the <strong>widest possible gap</strong> → more confident, generalizes better.</p>
+<hr />
+<h3>📘 What are Support Vectors?</h3>
+<p>The <strong>closest points</strong> to the boundary — they sit right on the edge of the margin.</p>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Support Vectors</strong></td>
+<td>The few critical points that <strong>define</strong> the boundary</td>
+</tr>
+<tr>
+<td><strong>Other points</strong></td>
+<td>Could be removed without changing anything</td>
+</tr>
+<tr>
+<td><strong>Why "support"?</strong></td>
+<td>They <strong>support</strong> (hold up) the boundary — move them and the boundary moves</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Only ~5–10% of training points are support vectors. The rest don't matter!</p>
+</blockquote>
+<hr />
+<h3>📘 What is the Kernel Trick?</h3>
+<p><strong>Problem:</strong> Some data can't be separated by a straight line (like a donut shape).</p>
+<p><strong>Solution:</strong> The kernel trick maps data to a <strong>higher dimension</strong> where it BECOMES separable — without actually computing the new coordinates!</p>
+<div class="diagram-box"><strong>Flow Diagram:</strong><ul><li>A2D: Not separable &bull; ○○●●○○ &bull; mixed together  &rarr;  Kernel maps to &bull; higher dimension  B3D: Separable! &bull; ○○ on a flat plane &bull; ●● lifted up &bull; A flat cut separates them</li></ul></div>
+
+<table>
+<thead>
+<tr>
+<th>Kernel</th>
+<th>Boundary Shape</th>
+<th>Accuracy (our digits)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Linear</strong></td>
+<td>Straight line/plane</td>
+<td>0.9800</td>
+</tr>
+<tr>
+<td><strong>Poly</strong></td>
+<td>Curved (polynomial)</td>
+<td>0.9711</td>
+</tr>
+<tr>
+<td><strong>RBF</strong> ⭐</td>
+<td>Flexible curves (Gaussian bell)</td>
+<td>0.9800</td>
+</tr>
+<tr>
+<td><strong>Sigmoid</strong></td>
+<td>S-shaped</td>
+<td>0.9467</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>📘 What is C (Regularization Parameter)?</h3>
+<p>C controls the <strong>trade-off between wide margin and fewer mistakes</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>C Value</th>
+<th>Margin</th>
+<th>Training Errors</th>
+<th>Risk</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Small C</strong> (e.g., 0.1)</td>
+<td>Wide</td>
+<td>More errors allowed</td>
+<td><strong>Underfit</strong> (too simple)</td>
+</tr>
+<tr>
+<td><strong>Large C</strong> (e.g., 1000)</td>
+<td>Narrow</td>
+<td>Very few errors</td>
+<td><strong>Overfit</strong> (memorizes noise)</td>
+</tr>
+<tr>
+<td><strong>Our C = 10</strong></td>
+<td>Balanced</td>
+<td>Good trade-off</td>
+<td>✅ Just right</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Analogy:</strong> Small C = chill teacher (allows mistakes), Large C = strict teacher (punishes every mistake).</p>
+<hr />
+<h3>📘 What is Gamma?</h3>
+<p>Gamma controls <strong>how far the influence of one training point reaches</strong> (only for RBF/poly/sigmoid):</p>
+<table>
+<thead>
+<tr>
+<th>Gamma</th>
+<th>Influence</th>
+<th>Boundary</th>
+<th>Risk</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Small</strong></td>
+<td>Far reach</td>
+<td>Smooth, simple</td>
+<td>Underfit</td>
+</tr>
+<tr>
+<td><strong>Large</strong></td>
+<td>Only nearby</td>
+<td>Wiggly, complex</td>
+<td>Overfit</td>
+</tr>
+<tr>
+<td><strong>"scale"</strong> (ours)</td>
+<td>Automatic: 1/(n_features × var)</td>
+<td>Balanced</td>
+<td>✅</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>📘 What is Precision, Recall, and F1?</h3>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Formula</th>
+<th>Meaning</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Precision</strong></td>
+<td>TP / (TP + FP)</td>
+<td>Of all I <strong>predicted</strong> as digit 8, how many are really 8?</td>
+<td>"Am I right when I say 8?"</td>
+</tr>
+<tr>
+<td><strong>Recall</strong></td>
+<td>TP / (TP + FN)</td>
+<td>Of all <strong>actual</strong> 8s, how many did I find?</td>
+<td>"Did I find all the 8s?"</td>
+</tr>
+<tr>
+<td><strong>F1 Score</strong></td>
+<td>2 × (P × R) / (P + R)</td>
+<td>Balance of both</td>
+<td>High only if BOTH are high</td>
+</tr>
+</tbody>
+</table>
+<p><strong>TP</strong> = True Positive, <strong>FP</strong> = False Positive, <strong>FN</strong> = False Negative</p>
+<hr />
+<h3>📘 What is a Confusion Matrix?</h3>
+<p>A table showing <strong>actual vs predicted</strong> for every class:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Pred 0</th>
+<th>Pred 1</th>
+<th>Pred 2</th>
+<th>...</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Actual 0</strong></td>
+<td>✅ 45</td>
+<td>0</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Actual 1</strong></td>
+<td>0</td>
+<td>✅ 44</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Actual 2</strong></td>
+<td>0</td>
+<td>0</td>
+<td>✅ 45</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Diagonal</strong> = correct predictions ✅</li>
+<li><strong>Off-diagonal</strong> = mistakes (e.g., an actual 1 predicted as 2)</li>
+<li>You can see <strong>which specific classes</strong> get confused</li>
+</ul>
+<hr />
+<h3>The Pipeline</h3>
+<div class="diagram-box"><strong>Flow Diagram:</strong><ul><li>A8×8 digit images &bull; 1797 samples &bull; 64 pixel features  &rarr;  B🔀 Split &bull; 75% train, 25% test &bull; stratify=y</li><li>B  &rarr;  C📏 Scale &bull; StandardScaler &bull; fit on train only!</li><li>C  &rarr;  D🤖 SVM &bull; kernel=rbf, C=10 &bull; gamma=scale</li><li>D  &rarr;  E📊 Evaluate &bull; 98% Accuracy &bull; Confusion Matrix</li><li>D  &rarr;  F🔄 Compare Kernels &bull; linear, poly, rbf, sigmoid</li></ul></div>
+
+<h3>Quick Viva Answers</h3>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Answer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>What are support vectors?</td>
+<td>Points <strong>closest</strong> to the boundary — they alone define it</td>
+</tr>
+<tr>
+<td>Hard vs Soft margin?</td>
+<td>Hard = no errors allowed. Soft = some errors OK (controlled by C)</td>
+</tr>
+<tr>
+<td>What is the kernel trick?</td>
+<td>Maps data to higher dimension where it becomes separable, without computing new coords</td>
+</tr>
+<tr>
+<td>Why scale for SVM?</td>
+<td>SVM uses <strong>distances</strong> — big features would dominate</td>
+</tr>
+<tr>
+<td>How does SVM handle 10 classes?</td>
+<td><strong>One-vs-One</strong>: 45 binary classifiers, then voting</td>
+</tr>
+<tr>
+<td>What does stratify=y do?</td>
+<td>Keeps same digit proportions in train and test sets</td>
+</tr>
+<tr>
+<td>Why fit scaler on train only?</td>
+<td>To prevent <strong>data leakage</strong> — test data must stay unseen</td>
+</tr>
+<tr>
+<td>Precision vs Recall?</td>
+<td>Precision = "Am I right?" Recall = "Did I find all?"</td>
+</tr>
+<tr>
+<td>What does confusion matrix show that accuracy doesn't?</td>
+<td><strong>Which specific digits</strong> get confused with each other</td>
+</tr>
+<tr>
+<td>Why is X_te[i:i+1] not X_te[i]?</td>
+<td><code>predict()</code> needs 2D array (1,64). <code>X_te[i]</code> is 1D → error</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>Practical 4 — K-Means Clustering on Iris 🌸</h2>
+<h3>What is K-Means in one line?</h3>
+<p><strong>Group data into k clusters by repeatedly assigning points to the nearest center and updating centers.</strong></p>
+<hr />
+<h3>📘 What is Clustering?</h3>
+<p><strong>Grouping similar things together WITHOUT any labels.</strong> You don't tell the algorithm "this is species A" — it figures out groups by itself.</p>
+<table>
+<thead>
+<tr>
+<th>Supervised (Classification)</th>
+<th>Unsupervised (Clustering)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>You give labels: "this is cat, this is dog"</td>
+<td>No labels given</td>
+</tr>
+<tr>
+<td>Model learns to predict labels</td>
+<td>Model finds natural groups</td>
+</tr>
+<tr>
+<td>Evaluated by accuracy</td>
+<td>Evaluated by silhouette, WCSS</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>📘 How does K-Means Work? (The Algorithm)</h3>
+<div class="diagram-box"><strong>Flow Diagram:</strong><ul><li>A1️⃣ Pick k random &bull; centroids centers  &rarr;  B2️⃣ ASSIGN &bull; each point to &bull; nearest centroid</li><li>B  &rarr;  C3️⃣ UPDATE &bull; move centroid to &bull; mean of its points</li><li>C  &rarr;  Repeat until &bull; nothing changes  B</li><li>C  &rarr;  D✅ Done! &bull; Converged</li></ul></div>
+
+<p><strong>Step-by-step example with k=3:</strong><br />
+1. Drop 3 random pins on the data (initial centroids)<br />
+2. Every point looks at all 3 pins → joins the <strong>nearest</strong> one<br />
+3. Each pin <strong>moves</strong> to the center (mean) of its group<br />
+4. Points re-check which pin is nearest → some switch groups<br />
+5. Pins move again... repeat until nobody switches = <strong>converged</strong></p>
+<hr />
+<h3>📘 What is WCSS (Within-Cluster Sum of Squares) / Inertia?</h3>
+<p><div class="math-block"><em>\text{WCSS} = \sum_{\text{each cluster}} \sum_{\text{each point in cluster}} (\text{point} - \text{centroid})^2</em></div></p>
+<table>
+<thead>
+<tr>
+<th>WCSS Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>High</strong></td>
+<td>Points are far from their centers → loose, bad clusters</td>
+</tr>
+<tr>
+<td><strong>Low</strong></td>
+<td>Points are close to their centers → tight, good clusters</td>
+</tr>
+<tr>
+<td><strong>0</strong></td>
+<td>Every point IS a centroid (k = n, useless)</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>WCSS <strong>always decreases</strong> as k increases — so we can't just pick the lowest!</p>
+</blockquote>
+<hr />
+<h3>📘 What is the Elbow Method?</h3>
+<p>Plot WCSS for different values of k (1 to 10) and look for the <strong>bend</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>k</th>
+<th>WCSS</th>
+<th>Drop</th>
+<th>What's happening</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>681</td>
+<td>—</td>
+<td>Everything in one group</td>
+</tr>
+<tr>
+<td>2</td>
+<td>152</td>
+<td>−529 ⬇️</td>
+<td>Huge improvement</td>
+</tr>
+<tr>
+<td><strong>3</strong></td>
+<td><strong>79</strong></td>
+<td><strong>−73 ⬇️</strong></td>
+<td><strong>← ELBOW HERE (bend point)</strong></td>
+</tr>
+<tr>
+<td>4</td>
+<td>57</td>
+<td>−22</td>
+<td>Small improvement</td>
+</tr>
+<tr>
+<td>5</td>
+<td>47</td>
+<td>−10</td>
+<td>Barely better</td>
+</tr>
+</tbody>
+</table>
+<p><strong>The elbow = best trade-off</strong> between few clusters and tight clusters. After the elbow, adding more clusters gives diminishing returns.</p>
+<hr />
+<h3>📘 What is K-Means++ (Smart Initialization)?</h3>
+<p><strong>Problem:</strong> Regular K-Means picks random starting centroids → sometimes they're all in one corner → bad clusters.</p>
+<p><strong>K-Means++ solution:</strong><br />
+1. Pick first centroid randomly<br />
+2. Pick next centroid <strong>far away</strong> from existing ones (probability proportional to distance²)<br />
+3. Repeat until k centroids are chosen</p>
+<p>→ Better starting positions → better final clusters. <strong>Default in sklearn!</strong></p>
+<hr />
+<h3>📘 What is Silhouette Score?</h3>
+<p>For each point, measure how well it fits in its own cluster vs the nearest other cluster:</p>
+<p><div class="math-block"><em>s = \frac{b - a}{\max(a, b)}</em></div></p>
+<p>Where:<br />
+- <strong>a</strong> = average distance to points in <strong>own</strong> cluster (lower = tighter fit)<br />
+- <strong>b</strong> = average distance to points in <strong>nearest other</strong> cluster (higher = well separated)</p>
+<table>
+<thead>
+<tr>
+<th>Silhouette Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>+1</strong></td>
+<td>Perfect — far from other clusters, tight in own</td>
+</tr>
+<tr>
+<td><strong>0.553</strong> (ours)</td>
+<td>Moderate — reasonable structure</td>
+</tr>
+<tr>
+<td><strong>0</strong></td>
+<td>On the border between two clusters</td>
+</tr>
+<tr>
+<td><strong>−1</strong></td>
+<td>Wrong cluster — closer to another group</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Silhouette is an <strong>INTERNAL</strong> metric — no labels needed!</p>
+</blockquote>
+<hr />
+<h3>📘 What is Adjusted Rand Index (ARI)?</h3>
+<p>Compares clusters with the <strong>true labels</strong> (species) by counting pairs:</p>
+<table>
+<thead>
+<tr>
+<th>ARI Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1.0</strong></td>
+<td>Perfect match with true species</td>
+</tr>
+<tr>
+<td><strong>0.73</strong> (ours)</td>
+<td>Good but not perfect (versicolor &amp; virginica overlap)</td>
+</tr>
+<tr>
+<td><strong>0.0</strong></td>
+<td>Random grouping</td>
+</tr>
+<tr>
+<td><strong>Negative</strong></td>
+<td>Worse than random</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>ARI is an <strong>EXTERNAL</strong> metric — needs true labels to compare against.</p>
+</blockquote>
+<hr />
+<h3>📘 What is a Centroid?</h3>
+<p>The <strong>center point</strong> of a cluster = the <strong>mean</strong> of all points in that cluster.</p>
+<table>
+<thead>
+<tr>
+<th>Centroid</th>
+<th>Sepal L</th>
+<th>Sepal W</th>
+<th>Petal L</th>
+<th>Petal W</th>
+<th>Likely Species</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cluster 0</td>
+<td>5.90</td>
+<td>2.75</td>
+<td>4.39</td>
+<td>1.43</td>
+<td>Versicolor</td>
+</tr>
+<tr>
+<td>Cluster 1</td>
+<td>5.01</td>
+<td>3.43</td>
+<td>1.46</td>
+<td>0.25</td>
+<td>Setosa</td>
+</tr>
+<tr>
+<td>Cluster 2</td>
+<td>6.85</td>
+<td>3.07</td>
+<td>5.74</td>
+<td>2.07</td>
+<td>Virginica</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>📘 K-Means vs DBSCAN vs Hierarchical</h3>
+<div class="diagram-box"><strong>Flow Diagram:</strong><ul><li>K1Need to choose k</li><li>K2Round clusters only</li><li>K3Fast: On×k×iters</li><li>K4Every point in a cluster</li><li>D1No need to choose k</li><li>D2ANY shape clusters</li><li>D3Finds NOISE/outliers</li><li>D4Needs eps and min_samples</li><li>H1No need to choose k upfront</li><li>H2Gives a dendrogram tree</li><li>H3Slow: On²</li><li>H4Cut tree at any level</li></ul></div>
+
+<hr />
+<h3>The Full Pipeline</h3>
+<div class="diagram-box"><strong>Flow Diagram:</strong><ul><li>A🌸 Iris Data &bull; 150 flowers &bull; 4 features  &rarr;  B📉 Elbow Method &bull; Run k=1 to 10 &bull; Plot WCSS</li><li>B  &rarr;  CChoose k=3 &bull; elbow bends here</li><li>C  &rarr;  D🤖 K-Means &bull; fit_predict</li><li>D  &rarr;  E📊 Scatter Plot &bull; + Centroids</li><li>D  &rarr;  F📏 Evaluate &bull; Silhouette: 0.553 &bull; ARI: 0.73</li></ul></div>
+
+<h3>Quick Viva Answers</h3>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Answer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Supervised or Unsupervised?</td>
+<td><strong>Unsupervised</strong> — never uses species labels</td>
+</tr>
+<tr>
+<td>What is WCSS?</td>
+<td>Within-Cluster Sum of Squares — lower = tighter clusters</td>
+</tr>
+<tr>
+<td>What is the elbow method?</td>
+<td>Plot WCSS vs k, pick k at the <strong>bend</strong> point</td>
+</tr>
+<tr>
+<td>What is K-Means++?</td>
+<td>Smart initialization — centroids start far apart → better results. Default in sklearn</td>
+</tr>
+<tr>
+<td>K-Means vs DBSCAN?</td>
+<td>K-Means: round clusters, needs k. DBSCAN: any shape, finds noise</td>
+</tr>
+<tr>
+<td>Why not use accuracy here?</td>
+<td>Cluster numbers are arbitrary (cluster 0 ≠ species 0). Use <strong>ARI</strong></td>
+</tr>
+<tr>
+<td>What does n_init=10 do?</td>
+<td>Run K-Means 10 times, keep the best to avoid bad starts</td>
+</tr>
+<tr>
+<td>Why no scaling on Iris?</td>
+<td>All 4 features are in cm and similar range</td>
+</tr>
+<tr>
+<td>Silhouette vs ARI?</td>
+<td>Silhouette = internal (no labels). ARI = external (needs true labels)</td>
+</tr>
+<tr>
+<td>Why can't WCSS alone decide k?</td>
+<td>It <strong>always</strong> decreases as k increases — so we look for the elbow, not the minimum</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>Practical 5 — Random Forest on Car Evaluation 🚗</h2>
+<h3>What is Random Forest in one line?</h3>
+<p><strong>Build 100 decision trees on random subsets of data, then let them VOTE on the answer.</strong></p>
+<hr />
+<h3>📘 What is a Decision Tree?</h3>
+<p>A flowchart of <strong>if-else questions</strong> that leads to a prediction:</p>
+<div class="diagram-box"><strong>Flow Diagram:</strong><ul><li>AIs safety = low?  &rarr;  Yes  B❌ UNACC &bull; unsafe car</li><li>A  &rarr;  No  CCan it seat > 2 persons?</li><li>C  &rarr;  No  D❌ UNACC</li><li>C  &rarr;  Yes  EIs buying price low?</li><li>E  &rarr;  Yes  F✅ GOOD</li><li>E  &rarr;  No  G⚠️ ACC</li></ul></div>
+
+<p><strong>Problem with ONE tree:</strong> It can grow too deep, memorize the training data, and <strong>overfit</strong>.</p>
+<hr />
+<h3>📘 What is an Ensemble?</h3>
+<p>A <strong>group of models</strong> whose predictions are combined. Instead of trusting one model, ask many and take the majority vote.</p>
+<p><strong>Analogy:</strong> Instead of asking one doctor, ask 100 doctors and go with the majority diagnosis → more reliable!</p>
+<hr />
+<h3>📘 What is Bootstrap Sampling?</h3>
+<p>Randomly pick rows <strong>WITH REPLACEMENT</strong> (same row can be picked twice):</p>
+<table>
+<thead>
+<tr>
+<th>Original Data</th>
+<th>Bootstrap Sample 1</th>
+<th>Bootstrap Sample 2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Row A</td>
+<td>Row C</td>
+<td>Row A</td>
+</tr>
+<tr>
+<td>Row B</td>
+<td>Row A</td>
+<td>Row A</td>
+</tr>
+<tr>
+<td>Row C</td>
+<td>Row A</td>
+<td>Row D</td>
+</tr>
+<tr>
+<td>Row D</td>
+<td>Row D</td>
+<td>Row B</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Each sample has ~<strong>63%</strong> unique rows (some repeated, some missing)</li>
+<li>The ~<strong>37%</strong> missing rows = <strong>Out-of-Bag (OOB)</strong> samples → free validation!</li>
+</ul>
+<hr />
+<h3>📘 What is Bagging (Bootstrap Aggregating)?</h3>
+<div class="diagram-box"><strong>Flow Diagram:</strong><ul><li>DFull Training Data  &rarr;  S1Bootstrap &bull; Sample 1</li><li>D  &rarr;  S2Bootstrap &bull; Sample 2</li><li>D  &rarr;  S3Bootstrap &bull; Sample 3</li><li>D  &rarr;  SNBootstrap &bull; Sample 100</li><li>S1  &rarr;  T1🌳 Tree 1</li><li>S2  &rarr;  T2🌳 Tree 2</li><li>S3  &rarr;  T3🌳 Tree 3</li><li>SN  &rarr;  TN🌳 Tree 100</li><li>T1  &rarr;  V🗳️ MAJORITY VOTE &bull; → Final prediction</li><li>T2  &rarr;  V</li><li>T3  &rarr;  V</li><li>TN  &rarr;  V</li></ul></div>
+
+<p><strong>Bagging = Bootstrap + Aggregating</strong> (combine by voting)</p>
+<p><strong>Random Forest = Bagging + random feature selection at each split</strong></p>
+<hr />
+<h3>📘 Why Random Features at Each Split?</h3>
+<p>Without it: all 100 trees would pick "safety" first (strongest feature) → all trees look the same → voting doesn't help.</p>
+<p>With random features: each tree sees only a <strong>random subset</strong> of features per split → trees become <strong>different</strong> → their mistakes cancel out when voting!</p>
+<blockquote>
+<p>Default: each split considers √n_features = √6 ≈ 2-3 features randomly</p>
+</blockquote>
+<hr />
+<h3>📘 What is Gini Impurity?</h3>
+<p>Measures <strong>how mixed</strong> the classes are in a node:</p>
+<p><div class="math-block"><em>\text{Gini} = 1 - \sum p_i^2</em></div></p>
+<table>
+<thead>
+<tr>
+<th>Node Content</th>
+<th>Gini</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>All class A (100% pure)</td>
+<td><strong>0.00</strong></td>
+<td>Perfect — no mixing</td>
+</tr>
+<tr>
+<td>50% A, 50% B</td>
+<td><strong>0.50</strong></td>
+<td>Maximum confusion</td>
+</tr>
+<tr>
+<td>70% unacc, 10% acc, 10% good, 10% vgood</td>
+<td><strong>0.48</strong></td>
+<td>Still mixed</td>
+</tr>
+</tbody>
+</table>
+<p>Trees split on the feature+threshold that <strong>reduces Gini the most</strong>.</p>
+<hr />
+<h3>📘 What is Feature Importance?</h3>
+<p>For each feature, sum up how much it <strong>reduced Gini impurity</strong> across all trees, then normalize to sum = 1:</p>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Importance</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>safety</strong></td>
+<td>0.306 🥇</td>
+<td>An unsafe car is always unacceptable</td>
+</tr>
+<tr>
+<td><strong>persons</strong></td>
+<td>0.237 🥈</td>
+<td>A 2-seater is limited</td>
+</tr>
+<tr>
+<td><strong>maint</strong></td>
+<td>0.159 🥉</td>
+<td>High maintenance = less acceptable</td>
+</tr>
+<tr>
+<td>buying</td>
+<td>0.144</td>
+<td>Price matters</td>
+</tr>
+<tr>
+<td>lug_boot</td>
+<td>0.088</td>
+<td>Luggage space matters less</td>
+</tr>
+<tr>
+<td>doors</td>
+<td>0.065</td>
+<td>Number of doors matters least</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>📘 What is OOB (Out-of-Bag) Error?</h3>
+<p>Each tree uses ~63% of rows. The remaining ~37% it <strong>never saw</strong> → use these as a <strong>free test set</strong>!</p>
+<ul>
+<li>Predict OOB rows with the trees that didn't train on them</li>
+<li>Get a validation score without needing a separate test set</li>
+<li>Enable with <code>oob_score=True</code> (not used in our code)</li>
+</ul>
+<hr />
+<h3>📘 What is Ordinal Encoding?</h3>
+<p>Converting <strong>ordered categories</strong> to numbers that <strong>keep the order</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Ordinal Encoding</th>
+<th>✅ Correct</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>low</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>med</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>high</td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td>vhigh</td>
+<td>3</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Without our explicit order, default alphabetical would give: high=0, low=1, med=2, vhigh=3 ← <strong>WRONG order!</strong></p>
+<p><strong>vs One-Hot Encoding</strong> (for unordered categories like colors):<br />
+| Color | Red | Blue | Green |<br />
+|-------|-----|------|-------|<br />
+| Red | 1 | 0 | 0 |<br />
+| Blue | 0 | 1 | 0 |</p>
+<hr />
+<h3>📘 Bagging vs Boosting (Very Common Viva!)</h3>
+<div class="diagram-box"><strong>Flow Diagram:</strong><ul><li>B1Models trained IN PARALLEL</li><li>B2Each on random sample</li><li>B3Combined by VOTING</li><li>B4Reduces VARIANCE</li><li>B5Less sensitive to noise</li><li>O1Models trained IN SEQUENCE</li><li>O2Each fixes PREVIOUS errors</li><li>O3Combined by weighted sum</li><li>O4Reduces BIAS</li><li>O5Can overfit if not tuned</li></ul></div>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Bagging (Random Forest)</th>
+<th>Boosting (XGBoost)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Training</strong></td>
+<td>Parallel (independent)</td>
+<td>Sequential (dependent)</td>
+</tr>
+<tr>
+<td><strong>Focus</strong></td>
+<td>Reduce variance (overfitting)</td>
+<td>Reduce bias (underfitting)</td>
+</tr>
+<tr>
+<td><strong>Speed</strong></td>
+<td>Faster (parallelizable)</td>
+<td>Slower (must wait for previous)</td>
+</tr>
+<tr>
+<td><strong>Noise</strong></td>
+<td>Robust</td>
+<td>Sensitive</td>
+</tr>
+<tr>
+<td><strong>Tuning</strong></td>
+<td>Works well with defaults</td>
+<td>Needs careful tuning</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>The Pipeline</h3>
+<div class="diagram-box"><strong>Flow Diagram:</strong><ul><li>A📂 Car Data &bull; 1728 cars &bull; 6 text features  &rarr;  B🔢 OrdinalEncoder &bull; low=0, med=1 &bull; high=2, vhigh=3</li><li>B  &rarr;  C🔀 Split &bull; 80/20 &bull; stratified</li><li>C  &rarr;  D🌲 Random Forest &bull; 100 trees</li><li>D  &rarr;  E📊 Evaluate &bull; Accuracy 98.6% &bull; Confusion Matrix</li><li>D  &rarr;  F📊 Feature &bull; Importance</li></ul></div>
+
+<h3>Quick Viva Answers</h3>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Answer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>What is a Random Forest?</td>
+<td>Ensemble of many trees on bootstrap samples with random features → majority vote</td>
+</tr>
+<tr>
+<td>What is bagging?</td>
+<td><strong>B</strong>ootstrap <strong>Agg</strong>regating — parallel models on random samples, reduces variance</td>
+</tr>
+<tr>
+<td>Bagging vs Boosting?</td>
+<td>Bagging = parallel, reduces variance. Boosting = sequential, reduces bias</td>
+</tr>
+<tr>
+<td>Why random features at each split?</td>
+<td>Decorrelates the trees → averaging works better</td>
+</tr>
+<tr>
+<td>What is OOB error?</td>
+<td>~37% rows a tree didn't train on → free validation</td>
+</tr>
+<tr>
+<td>What is Gini impurity?</td>
+<td>Measures class mixing in a node. 0 = pure, 0.5 = max confusion</td>
+</tr>
+<tr>
+<td>Why ordinal encoding, not one-hot?</td>
+<td>Features have natural order (low &lt; med &lt; high)</td>
+</tr>
+<tr>
+<td>Does RF need scaling?</td>
+<td><strong>No!</strong> Trees split on thresholds, scale doesn't matter</td>
+</tr>
+<tr>
+<td>Why is vgood recall only 0.77?</td>
+<td>Only 13 vgood cars in test — 1-2 mistakes = big recall drop</td>
+</tr>
+<tr>
+<td>RF vs single tree?</td>
+<td>RF = less overfitting, more accurate, but harder to interpret</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>Practical 6 — Q-Learning (Tic-Tac-Toe) 🎮</h2>
+<h3>What is Reinforcement Learning in one line?</h3>
+<p><strong>An agent learns by trial and error — play, get reward, update strategy, repeat.</strong></p>
+<hr />
+<h3>📘 What is Reinforcement Learning (RL)?</h3>
+<p>A <strong>third type of ML</strong> — different from supervised and unsupervised:</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Learns from</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Supervised</td>
+<td>Labeled data (X → y)</td>
+<td>Predict fare from distance</td>
+</tr>
+<tr>
+<td>Unsupervised</td>
+<td>Patterns in data (no labels)</td>
+<td>Group flowers into clusters</td>
+</tr>
+<tr>
+<td><strong>Reinforcement</strong></td>
+<td><strong>Rewards/punishments from actions</strong></td>
+<td><strong>Learn Tic-Tac-Toe by playing</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Analogy:</strong> Like training a dog 🐕 — you don't show it labeled examples. It tries things, gets treats (rewards) for good behavior and scolding (penalties) for bad → learns over time!</p>
+<hr />
+<h3>📘 The 5 Key RL Concepts</h3>
+<div class="diagram-box"><strong>Flow Diagram:</strong><ul><li>A🤖 AGENT &bull; the learner/player  &rarr;  Takes ACTION &bull; picks cell 0-8  E🎮 ENVIRONMENT &bull; Tic-Tac-Toe board</li><li>E  &rarr;  Returns new STATE &bull; updated board + &bull; REWARD +1, -1, 0.5  A</li><li>A  &rarr;  Follows POLICY &bull; epsilon-greedy: &bull; random or best?  A</li></ul></div>
+
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>In our code</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Agent</strong></td>
+<td>The Q-table player</td>
+<td>The learner who makes decisions</td>
+</tr>
+<tr>
+<td><strong>Environment</strong></td>
+<td>Tic-Tac-Toe board</td>
+<td>The world the agent interacts with</td>
+</tr>
+<tr>
+<td><strong>State</strong></td>
+<td>Tuple of 9 cells (0,1,2)</td>
+<td>Current board position</td>
+</tr>
+<tr>
+<td><strong>Action</strong></td>
+<td>Pick an empty cell (0-8)</td>
+<td>What the agent can do</td>
+</tr>
+<tr>
+<td><strong>Reward</strong></td>
+<td>+1 win, +0.5 draw, −1 loss</td>
+<td>Feedback signal</td>
+</tr>
+<tr>
+<td><strong>Policy</strong></td>
+<td>Epsilon-greedy</td>
+<td>Rule for choosing actions</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>📘 What is a Q-Table?</h3>
+<p>A <strong>lookup dictionary</strong> that stores: <em>"How good is it to play this move in this board state?"</em></p>
+<table>
+<thead>
+<tr>
+<th>State (board)</th>
+<th>Cell 0</th>
+<th>Cell 1</th>
+<th>Cell 2</th>
+<th>...</th>
+<th>Cell 8</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>(0,0,0,0,0,0,0,0,0)</code> (empty board)</td>
+<td>0.3</td>
+<td>0.1</td>
+<td>0.3</td>
+<td>...</td>
+<td>0.1</td>
+</tr>
+<tr>
+<td><code>(1,0,0,0,2,0,0,0,0)</code> (X top-left, O center)</td>
+<td>—</td>
+<td><strong>0.8</strong></td>
+<td>0.2</td>
+<td>...</td>
+<td>0.5</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Higher value → better move</li>
+<li>Agent just picks the action with the <strong>highest Q-value</strong></li>
+<li>Starts at 0 everywhere → learns through experience</li>
+<li>Our table learned <strong>4520 states</strong> after 30,000 games</li>
+</ul>
+<hr />
+<h3>📘 The Bellman Update — Heart of Q-Learning</h3>
+<p><div class="math-block"><em>Q(s,a) \leftarrow Q(s,a) + \alpha \times \Big[\underbrace{r + \gamma \times \max_{a'} Q(s',a')}_{\text{target}} - Q(s,a)\Big]</em></div></p>
+<p><strong>In plain English:</strong></p>
+<pre><code>New Q = Old Q + learning_rate × (Target − Old Q)
+</code></pre>
+<p>Where <strong>Target</strong> = reward I got NOW + discount × best I can get NEXT</p>
+<p><strong>Step by step:</strong><br />
+1. I'm in state <code>s</code>, I play action <code>a</code><br />
+2. I get reward <code>r</code> and land in new state <code>s'</code><br />
+3. <strong>Target</strong> = reward + γ × (best Q-value possible from s')<br />
+4. <strong>Error</strong> = Target − my old estimate<br />
+5. <strong>Update</strong> = nudge old estimate a little toward the target</p>
+<p><strong>Two-player twist:</strong> The opponent's next state gain is MY loss → so we <strong>negate</strong> it: target = −γ × best_q(opponent's view)</p>
+<hr />
+<h3>📘 What is Alpha (α = 0.3) — Learning Rate?</h3>
+<p>Controls <strong>how much</strong> each new experience changes the old belief:</p>
+<table>
+<thead>
+<tr>
+<th>α Value</th>
+<th>Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+<td>Never learns (ignores new experience)</td>
+</tr>
+<tr>
+<td><strong>0.3</strong> (ours)</td>
+<td>Balanced — learns steadily</td>
+</tr>
+<tr>
+<td><strong>1</strong></td>
+<td>Completely overwrites old value (forgets everything)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Analogy:</strong> α = how much you trust the latest exam score vs your overall GPA.</p>
+<hr />
+<h3>📘 What is Gamma (γ = 0.95) — Discount Factor?</h3>
+<p>Controls <strong>how much future rewards matter</strong> vs immediate rewards:</p>
+<table>
+<thead>
+<tr>
+<th>γ Value</th>
+<th>Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+<td>Only cares about immediate reward (short-sighted)</td>
+</tr>
+<tr>
+<td><strong>0.95</strong> (ours)</td>
+<td>Future matters almost as much as now (plans ahead)</td>
+</tr>
+<tr>
+<td><strong>1</strong></td>
+<td>Future matters equally (very far-sighted)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Analogy:</strong> γ = 0 is a child who wants candy NOW. γ = 0.95 is an adult who saves for retirement.</p>
+<hr />
+<h3>📘 What is Epsilon (ε) — Exploration Rate?</h3>
+<p>Chance of playing a <strong>random</strong> move instead of the best known move:</p>
+<div class="diagram-box"><strong>Flow Diagram:</strong><ul><li>E1🎲 Almost ALL random moves &bull; Explore every possibility &bull; Learn about new positions</li><li>E2🎲🧠 Mix of random + best &bull; Still exploring but using knowledge</li><li>E3🧠 Mostly BEST moves &bull; 5% random to discover anything missed</li><li>E4🏆 ALWAYS best move &bull; No exploration &bull; Pure performance</li><li>Early  &rarr;  Mid  &rarr;  Late  &rarr;  Test</li></ul></div>
+
+<p><strong>In our code:</strong> ε decays linearly from 1.0 → 0.05 over the first 80% (24,000) of 30,000 games.</p>
+<hr />
+<h3>📘 Exploration vs Exploitation — The Core Dilemma</h3>
+<table>
+<thead>
+<tr>
+<th>Exploration</th>
+<th>Exploitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Try random/new moves</td>
+<td>Use the best known move</td>
+</tr>
+<tr>
+<td>Might discover something better</td>
+<td>Uses proven strategy</td>
+</tr>
+<tr>
+<td>Wastes time if already optimal</td>
+<td>Misses undiscovered better moves</td>
+</tr>
+<tr>
+<td><strong>Essential early</strong> in training</td>
+<td><strong>Essential late</strong> and during testing</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Analogy:</strong> Trying a new restaurant (explore) vs going to your favorite one (exploit). You need both!</p>
+<hr />
+<h3>📘 What is Self-Play?</h3>
+<p>The agent plays <strong>both X and O</strong> against itself, using one Q-table:</p>
+<table>
+<thead>
+<tr>
+<th>Advantage</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>No human teacher needed</td>
+<td>Learns from scratch</td>
+</tr>
+<tr>
+<td>Opponent improves as agent improves</td>
+<td>Progressively harder practice</td>
+</tr>
+<tr>
+<td>Learns both sides of the game</td>
+<td>One table serves both X and O</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>📘 What is the <code>flip()</code> Trick?</h3>
+<p>The board is <strong>flipped</strong> so the current player always sees itself as "1" (X):</p>
+<pre><code>Real board: X _ O     flip() for O's turn: O _ X
+            _ X _     →                    _ O _
+            _ _ _                          _ _ _
+</code></pre>
+<p><strong>Why?</strong> → ONE Q-table works for both X and O! The agent always thinks "I am player 1, what should I do?"</p>
+<hr />
+<h3>📘 Q-Learning vs SARSA vs DQN</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Q-Learning (ours)</th>
+<th>SARSA</th>
+<th>DQN</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Update uses</strong></td>
+<td><strong>Max</strong> of next state (best possible)</td>
+<td><strong>Actual</strong> next action taken</td>
+<td>Neural network</td>
+</tr>
+<tr>
+<td><strong>Policy</strong></td>
+<td>Off-policy (learns optimal even while exploring)</td>
+<td>On-policy (learns the exploring policy)</td>
+<td>Off-policy + experience replay</td>
+</tr>
+<tr>
+<td><strong>State space</strong></td>
+<td>Small/discrete (table)</td>
+<td>Small/discrete (table)</td>
+<td>Large/continuous (images, etc.)</td>
+</tr>
+<tr>
+<td><strong>Behavior</strong></td>
+<td>Aggressive/optimistic</td>
+<td>More cautious/safe</td>
+<td>Handles Atari, robotics</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>Training Results</h3>
+<table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Wins</th>
+<th>Draws</th>
+<th>Losses</th>
+<th>Games</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Before training</strong></td>
+<td>210 (42%)</td>
+<td>62</td>
+<td>228 (46%)</td>
+<td>500</td>
+</tr>
+<tr>
+<td><strong>After training</strong></td>
+<td>909 (91%)</td>
+<td>89</td>
+<td>2 (0.2%)</td>
+<td>1000</td>
+</tr>
+</tbody>
+</table>
+<h3>Quick Viva Answers</h3>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Answer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>What is RL?</td>
+<td>Agent learns by trial &amp; error through rewards, no labeled data</td>
+</tr>
+<tr>
+<td>What is Q-learning?</td>
+<td>Model-free, off-policy algorithm that learns Q(s,a) values</td>
+</tr>
+<tr>
+<td>What is the Q-table?</td>
+<td>Dictionary: state → list of action values. Pick the highest</td>
+</tr>
+<tr>
+<td>Explain Bellman update?</td>
+<td>New Q = Old Q + α × (reward + γ × best_next − Old Q)</td>
+</tr>
+<tr>
+<td>What is α (alpha)?</td>
+<td>Learning rate (0.3) — how much to trust new experience</td>
+</tr>
+<tr>
+<td>What is γ (gamma)?</td>
+<td>Discount factor (0.95) — how much future rewards matter</td>
+</tr>
+<tr>
+<td>What is ε (epsilon)?</td>
+<td>Exploration rate — chance of random move. 1.0 → 0.05</td>
+</tr>
+<tr>
+<td>Q-learning vs SARSA?</td>
+<td>Q uses <strong>max</strong> next (off-policy). SARSA uses <strong>actual</strong> next (on-policy)</td>
+</tr>
+<tr>
+<td>Why is it model-free?</td>
+<td>Doesn't need game rules — learns from experience</td>
+</tr>
+<tr>
+<td>Why tuple not list for board?</td>
+<td>Tuples are <strong>hashable</strong> → can be dict keys in Q-table</td>
+</tr>
+<tr>
+<td>Why loop backward?</td>
+<td>So the final reward <strong>travels back</strong> to earlier moves</td>
+</tr>
+<tr>
+<td>Why not 100% win rate?</td>
+<td>Some rare positions not fully learned + agent plays 2nd in half games</td>
+</tr>
+<tr>
+<td>What is self-play?</td>
+<td>Agent plays both sides → learns without a teacher, opponent gets stronger too</td>
+</tr>
+<tr>
+<td>Why flip the board?</td>
+<td>So ONE Q-table works for both X and O (mover always sees itself as "1")</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>🗺️ Cheat Sheet — All 6 Practicals at a Glance</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Practical</th>
+<th>Type</th>
+<th>Algorithm</th>
+<th>Dataset</th>
+<th>Key Metric</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>PCA</td>
+<td>Unsupervised</td>
+<td>PCA</td>
+<td>Wine (178×13)</td>
+<td>Explained Variance</td>
+<td>55.41% with 2 PCs</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Regression</td>
+<td>Supervised</td>
+<td>Linear/Ridge/Lasso</td>
+<td>Uber (200K rides)</td>
+<td>R², RMSE</td>
+<td>R²≈0.49, RMSE≈$2.95</td>
+</tr>
+<tr>
+<td>3</td>
+<td>SVM</td>
+<td>Supervised</td>
+<td>SVC (RBF kernel)</td>
+<td>Digits (1797×64)</td>
+<td>Accuracy</td>
+<td>98%</td>
+</tr>
+<tr>
+<td>4</td>
+<td>K-Means</td>
+<td>Unsupervised</td>
+<td>K-Means</td>
+<td>Iris (150×4)</td>
+<td>Silhouette, ARI</td>
+<td>0.553, 0.73</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Random Forest</td>
+<td>Supervised</td>
+<td>RF (100 trees)</td>
+<td>Car Eval (1728×6)</td>
+<td>Accuracy</td>
+<td>98.6%</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Q-Learning</td>
+<td>Reinforcement</td>
+<td>Q-Learning</td>
+<td>Self-play TTT</td>
+<td>Win rate</td>
+<td>91% wins</td>
+</tr>
+</tbody>
+</table>
+<h3>The 3 Types of ML</h3>
+<div class="diagram-box"><strong>Flow Diagram:</strong><ul><li>MLMachine Learning  &rarr;  SSupervised &bull; has labels</li><li>ML  &rarr;  UUnsupervised &bull; no labels</li><li>ML  &rarr;  RReinforcement &bull; rewards</li><li>S  &rarr;  S1Regression → Prac 2</li><li>S  &rarr;  S2Classification → Prac 3, 5</li><li>U  &rarr;  U1Dimensionality Reduction → Prac 1</li><li>U  &rarr;  U2Clustering → Prac 4</li><li>R  &rarr;  R1Q-Learning → Prac 6</li></ul></div>
+
+<div class="alert-box" style="border-left: 4px solid #e65100; background: #fff3e0;"><strong>[IMPORTANT]</strong> > **Before your exam, remember these universal steps:**</div>
+
+<blockquote>
+<ol>
+<li><strong>Load data</strong> → <code>pd.read_csv()</code> or <code>load_*()</code> from sklearn</li>
+<li><strong>Clean/preprocess</strong> → handle NaN, encode categories, scale features</li>
+<li><strong>Split</strong> → <code>train_test_split()</code> (only for supervised)</li>
+<li><strong>Train</strong> → <code>.fit()</code> on training data</li>
+<li><strong>Evaluate</strong> → <code>.predict()</code> + metrics on test data</li>
+<li><strong>Visualize</strong> → matplotlib plots</li>
+</ol>
+</blockquote>
+<p>Good luck with your exam! 🍀</p>
+</body>
+</html>

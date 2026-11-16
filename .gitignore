@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+# files the scripts generate when run
+DMV/sales.csv
+DMV/sales.xlsx
+DMV/sales.json
+DMV/Cleaned_*.csv
+DMV/City_Air_Quality.csv
+DMV/Retail_Sales_Data.csv
+DMV/Stock_Prices.csv
+ML/uber.csv

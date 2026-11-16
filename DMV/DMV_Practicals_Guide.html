@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>DMV Practicals - Complete Exam Guide</title>
+<style>
+    @page {
+        size: A4 portrait;
+        margin: 1.5cm 1.2cm 1.5cm 1.2cm;
+        @top-right {
+            content: "DMV Practicals - Complete Exam Guide";
+            font-size: 8pt;
+            color: #666;
+            font-family: Helvetica, Arial, sans-serif;
+        }
+        @bottom-center {
+            content: "Page " counter(page);
+            font-size: 8pt;
+            color: #888;
+            font-family: Helvetica, Arial, sans-serif;
+        }
+    }
+    body {
+        font-family: Helvetica, Arial, sans-serif;
+        font-size: 9.5pt;
+        line-height: 1.45;
+        color: #222;
+    }
+    h1 {
+        color: #0d47a1;
+        font-size: 19pt;
+        border-bottom: 2.5px solid #0d47a1;
+        padding-bottom: 5px;
+        margin-top: 0;
+        margin-bottom: 12px;
+    }
+    h2 {
+        color: #1b5e20;
+        font-size: 14pt;
+        border-bottom: 1.5px solid #1b5e20;
+        padding-bottom: 4px;
+        margin-top: 18px;
+        margin-bottom: 8px;
+        page-break-before: always;
+    }
+    h2:first-of-type {
+        page-break-before: avoid;
+    }
+    h3 {
+        color: #4a148c;
+        font-size: 11pt;
+        margin-top: 12px;
+        margin-bottom: 4px;
+    }
+    h4 {
+        color: #333;
+        font-size: 10pt;
+        margin-top: 8px;
+        margin-bottom: 2px;
+    }
+    p {
+        margin: 4px 0 6px 0;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 8px 0 12px 0;
+        font-size: 8.5pt;
+    }
+    th {
+        background-color: #e3f2fd;
+        color: #0d47a1;
+        border: 0.5px solid #90caf9;
+        padding: 5px 6px;
+        text-align: left;
+        font-weight: bold;
+    }
+    td {
+        border: 0.5px solid #ddd;
+        padding: 4px 6px;
+        vertical-align: top;
+    }
+    tr:nth-child(even) td {
+        background-color: #fbfbfb;
+    }
+    code {
+        background-color: #f3f3f3;
+        color: #b71c1c;
+        font-family: Courier, monospace;
+        font-size: 8.5pt;
+        padding: 1px 3px;
+    }
+    pre {
+        background-color: #263238;
+        color: #eceff1;
+        font-family: Courier, monospace;
+        font-size: 8pt;
+        padding: 8px;
+        border-radius: 4px;
+        margin: 6px 0;
+    }
+    pre code {
+        background: transparent;
+        color: #eceff1;
+        padding: 0;
+    }
+    .diagram-box {
+        background-color: #f3e5f5;
+        border: 1px solid #ce93d8;
+        border-radius: 4px;
+        padding: 6px 10px;
+        margin: 8px 0;
+        font-size: 8.5pt;
+    }
+    .diagram-box ul {
+        margin: 3px 0 3px 15px;
+        padding: 0;
+    }
+    .diagram-box li {
+        margin: 2px 0;
+    }
+    .alert-box {
+        padding: 6px 10px;
+        margin: 8px 0;
+        border-radius: 3px;
+        font-size: 8.5pt;
+    }
+    .math-block {
+        background: #fafafa;
+        border-left: 3px solid #78909c;
+        padding: 4px 8px;
+        margin: 5px 0;
+        font-family: Georgia, serif;
+        font-size: 9pt;
+        color: #263238;
+    }
+    hr {
+        border: none;
+        border-top: 0.5px solid #ccc;
+        margin: 12px 0;
+    }
+</style>
+</head>
+<body>
+<h1>🎯 DMV Practicals — Complete Exam Guide (Assignments 1 to 7)</h1>
+<div class="alert-box" style="border-left: 4px solid #388e3c; background: #e8f5e9;"><strong>[TIP]</strong> > **Exam Strategy**:</div>
+
+<blockquote>
+<ol>
+<li>Look at each practical's <strong>Pipeline Diagram</strong> first to understand the flow.</li>
+<li>Read the <strong>"What it is in one line"</strong> and the concept breakdown.</li>
+<li>Memorize the <strong>Key Numbers &amp; Quick Viva Table</strong> — that's 90% of what external examiners ask!</li>
+</ol>
+</blockquote>
+<hr />
+<h2>Practical 1 — Multi-Format Sales (CSV, Excel, JSON) 📊</h2>
+<h3>What is Practical 1 in one line?</h3>
+<p><strong>Load sales data from 3 different file types (CSV, Excel, JSON), clean and merge them into one table, analyze sales, and plot graphs.</strong></p>
+<hr />
+<h3>📘 File Formats Compared (CSV vs Excel vs JSON)</h3>
+<div class="diagram-box"><strong>Flow Diagram:</strong><ul><li>AFile Formats  &rarr;  B📄 CSV &bull; Comma-Separated &bull; Plain text, lightweight &bull; NO types, NO formatting</li><li>A  &rarr;  C📊 Excel .xlsx &bull; XML workbook &bull; Has formulas, sheets, types &bull; Heavier, needs openpyxl</li><li>A  &rarr;  D🌐 JSON &bull; Key-Value dicts/lists &bull; Standard format for Web APIs &bull; Supports nested data</li></ul></div>
+
+<table>
+<thead>
+<tr>
+<th>Format</th>
+<th>Pros</th>
+<th>Cons</th>
+<th>Pandas Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>CSV</strong></td>
+<td>Tiny, universal, fast to load</td>
+<td>No data types (all text), no multiple sheets</td>
+<td><code>pd.read_csv("sales.csv")</code></td>
+</tr>
+<tr>
+<td><strong>Excel (.xlsx)</strong></td>
+<td>Formats, formulas, business friendly</td>
+<td>Slow, larger size, needs <code>openpyxl</code></td>
+<td><code>pd.read_excel("sales.xlsx")</code></td>
+</tr>
+<tr>
+<td><strong>JSON</strong></td>
+<td>Hierarchical, standard for web APIs</td>
+<td>Verbose, harder to flatten when nested</td>
+<td><code>pd.read_json("sales.json")</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>📘 Key Concepts Explained Simply</h3>
+<h4>1. <code>pd.concat()</code> vs <code>pd.merge()</code></h4>
+<ul>
+<li><strong><code>concat()</code></strong>: Stacks tables on top of each other (like putting sheets of paper in a stack) when column names match. Used here to combine CSV + Excel + JSON:<br />
+<code>python
+  df = pd.concat([csv_df, xls_df, json_df], ignore_index=True)</code></li>
+<li><strong><code>merge()</code></strong>: Joins tables side-by-side using a shared <strong>key column</strong> (like SQL <code>JOIN</code>).</li>
+</ul>
+<h4>2. Handling Missing Values (<code>fillna</code>)</h4>
+<ul>
+<li><strong>Mean</strong>: Average of numbers — gets pulled by extreme values/outliers!</li>
+<li><strong>Median</strong>: Middle value — robust against outliers. We use median for missing <code>Units</code>:<br />
+<code>python
+  df["Units"] = df["Units"].fillna(df["Units"].median())</code></li>
+<li><strong>Mode</strong>: Most frequent value — used for categorical text columns.</li>
+</ul>
+<h4>3. Handling Duplicates (<code>drop_duplicates</code>)</h4>
+<ul>
+<li>We drop duplicates by the unique order ID (<code>subset=["ID"]</code>), not by whole row, because two rows might differ slightly due to a typo but represent the same order:<br />
+<code>python
+  df = df.drop_duplicates(subset=["ID"]).copy()</code></li>
+</ul>
+<h4>4. Feature Engineering &amp; Date Splitting</h4>
+<ul>
+<li>Derived variable: <code>TotalSales = Units * Price</code></li>
+<li>Dates converted via <code>pd.to_datetime()</code> so <code>.dt</code> accessor can extract parts:<br />
+<code>python
+  df["Month"] = df["Date"].dt.month_name()
+  df["Year"] = df["Date"].dt.year</code></li>
+<li>Splitting strings: <code>str.split("-", expand=True)</code> splits <code>"Region-Cat"</code> into 2 separate columns (<code>Reg</code> and <code>Category</code>).</li>
+</ul>
+<h4>5. When to use which chart?</h4>
+<ul>
+<li><strong>Bar Chart</strong>: Compare discrete categories (e.g., Total revenue by Category).</li>
+<li><strong>Pie Chart</strong>: Share of a whole (use only with few categories, e.g., 4 regions).</li>
+<li><strong>Box Plot</strong>: Distribution, median, spread, and outliers of a numeric variable across groups.</li>
+</ul>
+<hr />
+<h3>Pipeline Diagram</h3>
+<div class="diagram-box"><strong>Flow Diagram:</strong><ul><li>ACreate 3 files &bull; CSV, Excel, JSON  &rarr;  Bpd.read_csv &bull; pd.read_excel &bull; pd.read_json</li><li>B  &rarr;  Cpd.concat &bull; Unify into 1 DataFrame</li><li>C  &rarr;  DClean &bull; Drop duplicate IDs &bull; fillna median Units</li><li>D  &rarr;  ETransform &bull; TotalSales = Units*Price &bull; Date to year/month/day &bull; str.splitRegion_Cat</li><li>E  &rarr;  FAnalyze & Forecast &bull; groupby sum/mean &bull; Linear Regression</li><li>F  &rarr;  GVisualize &bull; Bar, Pie, Box plots</li></ul></div>
+
+<hr />
+<h3>Key Numbers to Remember</h3>
+<ul>
+<li>Total rows generated: <strong>7</strong> (3 CSV with 1 duplicate, 2 Excel, 2 JSON) → <strong>6 rows</strong> after dropping duplicate ID <code>2</code>.</li>
+<li>Missing Units filled with median: <strong>18</strong>.</li>
+<li>Total Revenue: <strong><code>22,110.00</strong> | Average Order Value: <strong></code>3,685.00</strong>.</li>
+<li>Top Category: <strong>Tech (<code>17,000)</strong> | Top Region: <strong>West (</code>11,000)</strong>.</li>
+<li>Correlation <code>TotalSales</code> vs <code>AdSpend</code>: <strong>+0.788</strong> (strong positive correlation).</li>
+</ul>
+<hr />
+<h3>Quick Viva Q&amp;A</h3>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Best Answer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Why use <code>index=False</code> in <code>to_csv()</code>?</td>
+<td>Prevents pandas from saving unwanted 0, 1, 2... row index numbers into the file.</td>
+</tr>
+<tr>
+<td>What does <code>expand=True</code> do in <code>str.split()</code>?</td>
+<td>Returns a DataFrame with separate columns instead of a single column of lists.</td>
+</tr>
+<tr>
+<td>Why is <code>.copy()</code> used after <code>drop_duplicates()</code>?</td>
+<td>Creates an independent DataFrame to avoid <code>SettingWithCopyWarning</code>.</td>
+</tr>
+<tr>
+<td>Concat vs Merge?</td>
+<td><code>concat</code> stacks rows vertically; <code>merge</code> joins tables horizontally on a shared key.</td>
+</tr>
+<tr>
+<td>Why median instead of mean?</td>
+<td>Median is not pulled by extreme high or low outlier values.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>Practical 2 — Web APIs (Weather from OpenWeatherMap) 🌦️</h2>
+<h3>What is Practical 2 in one line?</h3>
+<p><strong>Fetch 5-day / 3-hour live weather forecast from OpenWeatherMap REST API via HTTP GET, clean and flatten nested JSON, aggregate daily, and visualize.</strong></p>
+<hr />
+<h3>📘 Key Concepts Explained Simply</h3>
+<h4>1. What is an API and REST?</h4>
+<ul>
+<li><strong>API (Application Programming Interface)</strong>: A messenger that lets our Python script request data from OpenWeatherMap's server.</li>
+<li><strong>REST (Representational State Transfer)</strong>: Architectural style using standard HTTP verbs:</li>
+<li><code>GET</code>: Read / retrieve data (what we use)</li>
+<li><code>POST</code>: Create new data</li>
+<li><code>PUT</code>: Update data</li>
+<li><code>DELETE</code>: Remove data</li>
+<li>REST is <strong>stateless</strong> — every request contains all info (API key, city, units) needed.</li>
+</ul>
+<h4>2. HTTP Status Codes</h4>
+<div class="diagram-box"><strong>Flow Diagram:</strong><ul><li>AHTTP Status Codes  &rarr;  B✅ 200: OK Success</li><li>A  &rarr;  C❌ 401: Unauthorized Bad or inactive API key</li><li>A  &rarr;  D❌ 404: Not Found Invalid city name or URL</li><li>A  &rarr;  E⚠️ 429: Too Many Requests Rate limit exceeded</li><li>A  &rarr;  F💥 500: Internal Server Error</li></ul></div>
+
+<h4>3. API Key &amp; Security</h4>
+<ul>
+<li>Never hardcode API keys in source code!</li>
+<li>Read via environment variables: <code>os.getenv("OPENWEATHER_API_KEY", "")</code>.</li>
+<li>If key is missing or offline, the script falls back to <strong>synthetic/simulated data</strong> (40 readings) using numpy sine waves so the assignment runs smoothly offline!</li>
+</ul>
+<h4>4. Handling Nested JSON Data</h4>
+<ul>
+<li>Weather API returns deeply nested JSON:<br />
+<code>item["main"]["temp"]</code>, <code>item["wind"]["speed"]</code></li>
+<li>For rain: Rain only appears when raining! Using <code>item["rain"]["3h"]</code> would crash with <code>KeyError</code> on dry days.<br />
+  Solution: <code>item.get("rain", {}).get("3h", 0.0)</code>.</li>
+</ul>
+<h4>5. API Data Cleaning</h4>
+<ul>
+<li>Missing rain is filled with <code>0.0</code> (dry day).</li>
+<li>Missing temperature/wind is <strong>interpolated</strong> (<code>interpolate().bfill()</code>), NOT filled with 0 (because 0°C is a real freezing temperature, not missing!).</li>
+</ul>
+<hr />
+<h3>Pipeline Diagram</h3>
+<div class="diagram-box"><strong>Flow Diagram:</strong><ul><li>Arequests.getURL &bull; with city, metric, key  &rarr;  B{Status 200?}</li><li>B  &rarr;  Yes  CParse JSON list &bull; 40 readings</li><li>B  &rarr;  No/Offline  DFallback Synthetic Data &bull; Sine wave + noise</li><li>C  &rarr;  EFlatten into DataFrame &bull; temp, humidity, wind, rain</li><li>D  &rarr;  E</li><li>E  &rarr;  FClean &bull; fillna0 for rain &bull; interpolate for temp</li><li>F  &rarr;  GDaily Aggregation &bull; groupby'date'.agg</li><li>G  &rarr;  HVisualise 2x3 Grid &bull; Line, Bar, Scatter, &bull; Heatmap, Bubble map</li></ul></div>
+
+<hr />
+<h3>Key Numbers to Remember</h3>
+<ul>
+<li>Forecast structure: <strong>5 days × every 3 hours = 40 records</strong>.</li>
+<li>Synthetic temperature baseline: <strong>~28°C</strong> with sine wave variation.</li>
+<li>Correlation temp vs humidity: <strong>~ -0.95</strong> (strong negative: as air warms, relative humidity drops).</li>
+</ul>
+<hr />
+<h3>Quick Viva Q&amp;A</h3>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Best Answer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>What does <code>timeout=10</code> do?</td>
+<td>Stops the script from hanging indefinitely if the remote server fails to respond.</td>
+</tr>
+<tr>
+<td>Why <code>item.get("rain", {})</code>?</td>
+<td>Rain key is absent on sunny days; <code>.get()</code> prevents a <code>KeyError</code>.</td>
+</tr>
+<tr>
+<td>Why not fill missing temperature with 0?</td>
+<td>0°C is freezing point, a valid measurement. Interpolation estimates realistic values.</td>
+</tr>
+<tr>
+<td>What does <code>np.polyfit()</code> do?</td>
+<td>Fits a linear line (<code>y = mx + c</code>) to find temperature trend slope over time.</td>
+</tr>
+<tr>
+<td>Difference between live and synthetic data?</td>
+<td>Live comes from real API calls; synthetic uses mathematical formulas when offline.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>Practical 3 — Data Cleaning &amp; Preparation (Telecom Churn) 📱</h2>
+<h3>What is Practical 3 in one line?</h3>
+<p><strong>Clean messy telecom customer data (blank strings, outliers, inconsistent text), engineer new features, encode and scale, and prepare it for machine learning.</strong></p>
+<hr />
+<h3>📘 Data Cleaning vs Data Preparation</h3>
+<div class="diagram-box"><strong>Flow Diagram:</strong><ul><li>C1Convert hidden blanks ' ' to NaN</li><li>C2Impute missing TotalCharges</li><li>C3Remove duplicate customerIDs</li><li>C4Standardize text with str.strip & replace</li><li>C5Cap outliers using IQR fences</li><li>P1Feature Engineering: AvgMonthlySpend, TenureGroup</li><li>P2One-Hot Encoding: pd.get_dummiesdrop_first=True</li><li>P3Train/Test Split: stratify=y</li><li>P4StandardScaler: fit on TRAIN only!</li><li>P5Export clean CSV</li><li>Cleaning  &rarr;  Prep</li></ul></div>
+
+<hr />
+<h3>📘 Key Concepts Explained Simply</h3>
+<h4>1. Hidden Missing Values (Blank Strings <code>" "</code>)</h4>
+<ul>
+<li>In <code>TotalCharges</code>, 11 new customers had <code>" "</code> (space text). <code>isnull()</code> sees it as valid string!</li>
+<li>Solution:<br />
+<code>python
+  df["TotalCharges"] = pd.to_numeric(df["TotalCharges"], errors="coerce")</code><br />
+<code>errors="coerce"</code> turns invalid text into <code>NaN</code>.</li>
+<li>We impute with <code>tenure * MonthlyCharges</code> because tenure is 0 for new customers (they paid <code>0).</li>
+</ul>
+<h4>2. Outliers: IQR Method vs Z-Score</h4>
+<ul>
+<li><strong>IQR (Interquartile Range)</strong>:<br />
+  <div class="math-block"><em>\text{IQR} = Q_3 - Q_1</em></div><br />
+  Lower Limit = </code>Q_1 - 1.5 \times \text{IQR}<code>, Upper Limit = </code>Q_3 + 1.5 \times \text{IQR}<code></li>
+<li>Robust against skewed data.</li>
+<li><strong>Z-Score</strong>: </code>z = \frac{x - \mu}{\sigma}<code>. Outlier if </code>|z| &gt; 3<code>. Assumes bell curve (normal distribution).</li>
+<li><strong>Capping / Winsorizing (<code>clip</code>)</strong>: Instead of deleting rows and losing customers, we cap extreme values at the upper and lower fences:<br />
+<code>python
+  df[col] = df[col].clip(lo, hi)</code></li>
+</ul>
+<h4>3. One-Hot Encoding &amp; Dummy Variable Trap</h4>
+<ul>
+<li>Models cannot read text categories like <code>"DSL"</code>, <code>"Fiber optic"</code>.</li>
+<li><code>get_dummies(drop_first=True)</code> converts categories into </code>0/1<code> indicator columns.</li>
+<li><strong>Dummy Variable Trap</strong>: If a category has 3 options and you keep all 3 dummy columns, they sum to 1 (perfect multicollinearity). <code>drop_first=True</code> drops the first column to prevent this.</li>
+</ul>
+<h4>4. Data Leakage &amp; Scaler Fitting</h4>
+<ul>
+<li><strong>Rule</strong>: Never fit the scaler on the whole dataset!</li>
+<li>Fit on <code>X_train</code> only (<code>sc.fit(X_train)</code>), then <code>transform</code> both train and test. If test data influences mean/std, it's <strong>data leakage</strong>.</li>
+</ul>
+<hr />
+<h3>Key Numbers to Remember</h3>
+<ul>
+<li>Rows: <strong>7,043 customers</strong>, 21 columns.</li>
+<li>Missing values in <code>TotalCharges</code>: <strong>11 rows</strong> (all with <code>tenure = 0</code>).</li>
+<li>Target variable: <code>Churn</code> (Yes = 1, No = 0).</li>
+<li>Churn Rate: <strong>26.5%</strong> (imbalanced dataset → why <code>stratify=y</code> is needed).</li>
+<li>Train/Test Split: <strong>80% train (5634 rows) / 20% test (1409 rows)</strong>.</li>
+<li>Final encoded feature count: <strong>27 columns</strong>.</li>
+</ul>
+<hr />
+<h3>Quick Viva Q&amp;A</h3>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Best Answer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Why did <code>isnull()</code> miss blank TotalCharges?</td>
+<td>Spaces <code>" "</code> are considered non-null strings; <code>to_numeric(errors='coerce')</code> converts them to <code>NaN</code>.</td>
+</tr>
+<tr>
+<td>Why cap outliers with <code>clip()</code> instead of deleting?</td>
+<td>Deleting removes valuable customer records; capping retains the data while taming extremes.</td>
+</tr>
+<tr>
+<td>What does <code>stratify=y</code> do?</td>
+<td>Preserves the 26.5% churn ratio equally in both train and test sets.</td>
+</tr>
+<tr>
+<td>What is the dummy variable trap?</td>
+<td>Multicollinearity caused by keeping all dummy columns; resolved by <code>drop_first=True</code>.</td>
+</tr>
+<tr>
+<td>Why fit scaler only on training data?</td>
+<td>To prevent <strong>data leakage</strong> from the unseen test set into model training.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>Practical 4 — Data Wrangling (California Real Estate) 🏡</h2>
+<h3>What is Practical 4 in one line?</h3>
+<p><strong>Clean messy column headers, impute missing bedrooms, merge risk lookup tables, filter subsets, encode categories, and aggregate housing prices.</strong></p>
+<hr />
+<h3>📘 Key Concepts Explained Simply</h3>
+<h4>1. What is Data Wrangling?</h4>
+<p>Transforming messy, raw data into a clean, unified format suitable for downstream analytics and machine learning.</p>
+<h4>2. Standardizing Column Names</h4>
+<p>Raw columns often have spaces or symbols (e.g., <code>"Total Rooms!"</code>).<br />
+Clean with regex:</p>
+<pre><code class="language-python">df.columns = (df.columns.str.strip().str.lower()
+              .str.replace(r&quot;[^\w\s]&quot;, &quot;&quot;, regex=True)
+              .str.replace(r&quot;\s+&quot;, &quot;_&quot;, regex=True))
+</code></pre>
+<p>Results in clean names: <code>median_house_value</code>, <code>ocean_proximity</code>.</p>
+<h4>3. Joins / Merges: Left vs Inner vs Outer</h4>
+<div class="diagram-box"><strong>Flow Diagram:</strong><ul><li>AMerge Types  &rarr;  BLeft Join how='left' &bull; Keep ALL rows of left table &bull; Fill NaN if no match &bull; ✅ Used here: keep all 20,640 homes</li><li>A  &rarr;  CInner Join how='inner' &bull; Keep ONLY rows that match in BOTH</li><li>A  &rarr;  DRight Join how='right' &bull; Keep ALL rows of right table</li><li>A  &rarr;  EOuter Join how='outer' &bull; Keep ALL rows from both tables</li></ul></div>
+
+<h4>4. Boolean Indexing (Filtering)</h4>
+<p>To filter expensive and new homes:</p>
+<pre><code class="language-python">subset = df[(df[&quot;median_house_value&quot;] &gt; 200000) &amp; (df[&quot;housing_median_age&quot;] &lt; 20)]
+</code></pre>
+<ul>
+<li>Must use bitwise <code>&amp;</code> (and) or <code>|</code> (or), NOT python keywords <code>and</code>/<code>or</code>.</li>
+<li>Every condition <strong>must be wrapped in parentheses <code>()</code></strong> due to operator precedence!</li>
+</ul>
+<h4>5. Binning with <code>pd.cut()</code></h4>
+<p>Converts continuous numbers (house age) into distinct categorical age bands:<br />
+<code>(0, 10]</code>, <code>(10, 20]</code>, <code>(20, 35]</code>, <code>(35, 60]</code>.</p>
+<hr />
+<h3>Key Numbers to Remember</h3>
+<ul>
+<li>Dataset: <strong>20,640 rows</strong> (California 1990 census blocks).</li>
+<li>Missing values: <strong>207 missing in <code>total_bedrooms</code></strong> → filled with median (<code>435.0</code>).</li>
+<li>Expensive &amp; New homes: <strong>2,186 properties</strong> out of 20,640.</li>
+<li>Outliers in house value: <strong>1,071 rows</strong> capped at upper fence of <strong></code>482,412</strong>.</li>
+</ul>
+<hr />
+<h3>Quick Viva Q&amp;A</h3>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Best Answer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Why merge on a key instead of row position?</td>
+<td>Position merging can misalign data if rows change order. Key matching guarantees correct pairing.</td>
+</tr>
+<tr>
+<td>Why use parentheses <code>()</code> in pandas filters?</td>
+<td>In Python, <code>&amp;</code> has higher precedence than <code>&gt;</code> or <code>&lt;</code>; brackets ensure comparisons evaluate first.</td>
+</tr>
+<tr>
+<td>What does <code>observed=True</code> do in <code>groupby</code>?</td>
+<td>Shows only categories that actually exist in the data, suppressing future deprecation warnings.</td>
+</tr>
+<tr>
+<td>Label Encoding vs One-Hot Encoding?</td>
+<td>Label gives 0, 1, 2 (implies order, good for trees). One-Hot gives binary columns (no order, safe for linear models).</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>Practical 5 — Data Visualization using Matplotlib (AQI Trends) 🌫️</h2>
+<h3>What is Practical 5 in one line?</h3>
+<p><strong>Analyze Delhi air pollution using Matplotlib: plot daily trends, 14-day rolling averages, monthly comparisons, box/violin distributions, and bubble charts.</strong></p>
+<hr />
+<h3>📘 Chart Types &amp; When to Use</h3>
+<div class="diagram-box"><strong>Flow Diagram:</strong><ul><li>AVisualization Types  &rarr;  B📈 Line Plot &bull; Trend over time &bull; Daily AQI & rolling mean</li><li>A  &rarr;  C📊 Bar Plot &bull; Category comparison &bull; Monthly average AQI</li><li>A  &rarr;  D📦 Box Plot &bull; Quartiles, median, outliers &bull; Pollutant spread</li><li>A  &rarr;  E🎻 Violin Plot &bull; Box plot + Kernel Density curve &bull; Shows data peaks</li><li>A  &rarr;  F🫧 Bubble Chart &bull; 4 variables at once! &bull; X=PM2.5, Y=AQI, Color=CO, Size=PM10</li></ul></div>
+
+<table>
+<thead>
+<tr>
+<th>Chart</th>
+<th>What it shows best</th>
+<th>In our code</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Line Plot</strong></td>
+<td>Continuous movement over time</td>
+<td>Daily AQI + 14-day moving average</td>
+</tr>
+<tr>
+<td><strong>Bar Plot</strong></td>
+<td>Discrete group comparison</td>
+<td>Monthly average AQI</td>
+</tr>
+<tr>
+<td><strong>Box Plot</strong></td>
+<td>Median, IQR spread, outliers</td>
+<td>PM2.5 spread across AQI categories</td>
+</tr>
+<tr>
+<td><strong>Violin Plot</strong></td>
+<td>Distribution shape &amp; multiple peaks</td>
+<td>PM10 spread across AQI categories</td>
+</tr>
+<tr>
+<td><strong>Bubble Chart</strong></td>
+<td>4 dimensions on 2D screen!</td>
+<td>X=PM2.5, Y=AQI, Color=CO, Size=PM10</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>📘 Key Concepts Explained Simply</h3>
+<h4>1. What is a Rolling (Moving) Average?</h4>
+<ul>
+<li><code>df["AQI"].rolling(14).mean()</code></li>
+<li>Averages past 14 days of data to <strong>smooth out day-to-day noise</strong> so the true underlying trend is visible.</li>
+<li>The first 13 days will be <code>NaN</code> because a full 14-day window hasn't accumulated yet.</li>
+</ul>
+<h4>2. CPCB AQI Categories (India)</h4>
+<ol>
+<li><strong>0–50</strong>: Good</li>
+<li><strong>51–100</strong>: Satisfactory</li>
+<li><strong>101–200</strong>: Moderate</li>
+<li><strong>201–300</strong>: Poor</li>
+<li><strong>301–400</strong>: Very Poor</li>
+<li><strong>401+</strong>: Severe</li>
+</ol>
+<h4>3. Why PM2.5 and PM10 dominate AQI?</h4>
+<ul>
+<li>PM2.5 (particles <code>\le 2.5\mu m</code>) and PM10 are the most harmful respirable particles.</li>
+<li>Correlation with AQI in Delhi is <strong>~0.95</strong> (near perfect correlation)!</li>
+</ul>
+<hr />
+<h3>Key Numbers to Remember</h3>
+<ul>
+<li>Sample filtered: <strong>Delhi, latest 365 days</strong> (July 2019 to July 2020).</li>
+<li>Average AQI: <strong>~200.15</strong> (Moderate to Poor).</li>
+<li>Seasonal pattern: Cleanest in <strong>Monsoon (Aug–Sep ~100 AQI)</strong>, worst in <strong>Winter (Nov–Dec ~355 AQI)</strong> due to crop burning and cold stagnant air.</li>
+<li>Correlation with AQI: <strong>PM2.5 = 0.949</strong>, <strong>PM10 = 0.946</strong>, <strong>CO = 0.817</strong>.</li>
+</ul>
+<hr />
+<h3>Quick Viva Q&amp;A</h3>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Best Answer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Difference between <code>plt.subplot()</code> and <code>plt.subplots()</code>?</td>
+<td><code>subplot()</code> adds one axes at a time; <code>subplots()</code> creates the full Figure and axes array together in one call.</td>
+</tr>
+<tr>
+<td>Box plot vs Violin plot?</td>
+<td>Box plot shows summary stats (median, IQR, outliers); Violin plot also shows the probability density (distribution shape).</td>
+</tr>
+<tr>
+<td>What does <code>alpha=0.7</code> mean?</td>
+<td>Sets transparency (70% opacity) so overlapping dots remain visible.</td>
+</tr>
+<tr>
+<td>How does the bubble chart show 4 variables?</td>
+<td>X-axis = PM2.5, Y-axis = AQI, Dot Color = CO, Bubble Size = PM10.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>Practical 6 — Retail Sales Aggregation (Superstore) 🛒</h2>
+<h3>What is Practical 6 in one line?</h3>
+<p><strong>Aggregate 9,994 retail sales rows using the Split-Apply-Combine pattern to identify top-performing regions and cross-tabulate categories.</strong></p>
+<hr />
+<h3>📘 Key Concepts Explained Simply</h3>
+<h4>1. What is Data Aggregation?</h4>
+<p>Taking thousands of detailed transaction records and collapsing them into concise summary figures (Totals, Averages, Counts).<br />
+In SQL: <code>GROUP BY</code>. In Pandas: <code>df.groupby()</code>.</p>
+<h4>2. The Split-Apply-Combine Pattern</h4>
+<div class="diagram-box"><strong>Flow Diagram:</strong><ul><li>ARaw Data &bull; 9,994 orders  &rarr;  SPLIT by Region  BWest   East   Central   South</li><li>B  &rarr;  APPLY function  CsumSalesAmount</li><li>C  &rarr;  COMBINE  D4 regional totals &bull; ranked in order</li></ul></div>
+
+<h4>3. Stacked Bar vs Grouped Bar Plot</h4>
+<div class="diagram-box"><strong>Flow Diagram:</strong><ul><li>S1Categories stacked on top of each other</li><li>S2Shows the TOTAL region height clearly</li><li>S3Hard to compare individual categories</li><li>G1Bars side-by-side per region</li><li>G2Easy to compare categories directly</li><li>G3Doesn't show region total in one bar</li></ul></div>
+
+<h4>4. <code>groupby() + unstack()</code> vs <code>pivot_table()</code></h4>
+<ul>
+<li>Both produce the exact same cross-table matrix (Region × Category):<br />
+  ```python<br />
+  # Method 1<br />
+  df.groupby(["Region", "ProductCategory"])["SalesAmount"].sum().unstack(fill_value=0)</li>
+</ul>
+<p># Method 2<br />
+  pd.pivot_table(df, index="Region", columns="ProductCategory", values="SalesAmount", aggfunc="sum", fill_value=0)<br />
+<code>``
+-</code>fill_value=0<code>replaces missing combinations with 0 instead of</code>NaN`.</p>
+<hr />
+<h3>Key Numbers to Remember</h3>
+<ul>
+<li>Dataset: <strong>9,994 rows</strong> (Kaggle Superstore dataset).</li>
+<li>Top Performing Region: <strong>West (<code>725,457.82)</strong> → <strong>31.6% share</strong> of total company revenue.</li>
+<li>Rankings: 1. West, 2. East, 3. Central, 4. South.</li>
+<li>Best selling category: <strong>Technology</strong> in East, Central, South; <strong>Furniture</strong> in West.</li>
+<li>Interesting Insight: South has the fewest orders (1,620) and lowest total sales, but the <strong>highest average order value (</code>241.80)</strong>.</li>
+</ul>
+<hr />
+<h3>Quick Viva Q&amp;A</h3>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Best Answer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sum vs Mean as a KPI?</td>
+<td><code>Sum</code> shows total business size; <code>Mean</code> shows typical transaction value. A region can have high total simply due to high order volume.</td>
+</tr>
+<tr>
+<td>What does <code>unstack()</code> do?</td>
+<td>Pivots the inner level of a multi-index Series into columns, turning grouped data into a 2D matrix.</td>
+</tr>
+<tr>
+<td>Why use <code>rot=0</code> in <code>.plot(kind='bar')</code>?</td>
+<td>Keeps horizontal x-axis labels straight (0° rotation) so they are easy to read.</td>
+</tr>
+<tr>
+<td>Difference between <code>count()</code> and <code>size()</code>?</td>
+<td><code>count()</code> counts non-null values; <code>size()</code> counts total rows including nulls.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>Practical 7 — Stock Time Series Analysis (ARIMA &amp; Holt) 📈</h2>
+<h3>What is Practical 7 in one line?</h3>
+<p><strong>Analyze stock price trends, test for stationarity using ADF, decompose seasonality, and forecast future prices using ARIMA and Exponential Smoothing.</strong></p>
+<hr />
+<h3>📘 Key Concepts Explained Simply</h3>
+<h4>1. Why Time Series is Different from Standard ML</h4>
+<ul>
+<li><strong>Order Matters!</strong> Data is recorded sequentially over time.</li>
+<li><strong>NEVER randomly shuffle or split time series!</strong></li>
+<li>Shuffling creates data leakage (predicting the past using the future).</li>
+<li>Train/Test split is always <strong>chronological</strong>: Train on past (older data), test on future (latest 30 days).</li>
+</ul>
+<h4>2. Components of a Time Series</h4>
+<div class="diagram-box"><strong>Flow Diagram:</strong><ul><li>TSTime Series Data  &rarr;  T📈 Trend: Long term upward or downward direction</li><li>TS  &rarr;  S🔄 Seasonality: Pattern repeating at fixed intervals day/week/month</li><li>TS  &rarr;  C🌊 Cyclic: Fluctuations without fixed period economic boom/bust</li><li>TS  &rarr;  R🎲 Residual / Noise: Random unpredictable variation</li></ul></div>
+
+<ul>
+<li><strong>Additive Model</strong>: <code>\text{Value} = \text{Trend} + \text{Seasonal} + \text{Residual}</code> (used when amplitude stays constant).</li>
+<li><strong>Multiplicative Model</strong>: <code>\text{Value} = \text{Trend} \times \text{Seasonal} \times \text{Residual}</code> (used when swings grow as price rises).</li>
+</ul>
+<h4>3. Moving Averages: SMA vs EMA</h4>
+<ul>
+<li><strong>SMA (Simple Moving Average)</strong>: Equal weight to all days in window.</li>
+<li><strong>EMA (Exponential Moving Average)</strong>: Gives more weight to recent days (reacts faster).</li>
+<li><strong>Golden Cross</strong>: Short MA (20-day) crosses <strong>above</strong> Long MA (50-day) → Bullish buy signal!</li>
+<li><strong>Death Cross</strong>: Short MA crosses <strong>below</strong> Long MA → Bearish sell signal!</li>
+</ul>
+<h4>4. Stationarity &amp; The ADF Test</h4>
+<ul>
+<li><strong>Stationary series</strong>: Mean, variance, and autocorrelation remain constant over time.</li>
+<li>Stock prices are <strong>NOT stationary</strong> (they drift and trend upwards).</li>
+<li><strong>ADF (Augmented Dickey-Fuller) Test</strong>:</li>
+<li><code>p\text{-value} \ge 0.05</code>: NOT stationary (fail to reject null hypothesis).</li>
+<li><code>p\text{-value} &lt; 0.05</code>: Stationary!</li>
+<li><strong>Differencing (<code>d=1</code>)</strong>: Subtract yesterday's price from today's price (<code>y_t - y_{t-1}</code>). First difference becomes stationary!</li>
+</ul>
+<h4>5. ARIMA(p, d, q) Model</h4>
+<ul>
+<li><strong>AR (<code>p</code>)</strong>: AutoRegressive — uses past <code>p</code> values to predict today.</li>
+<li><strong>I (<code>d</code>)</strong>: Integrated — number of differencing steps to achieve stationarity (<code>d=1</code>).</li>
+<li><strong>MA (<code>q</code>)</strong>: Moving Average — uses past <code>q</code> forecast errors.</li>
+<li>We use <strong>ARIMA(5, 1, 0)</strong>: 5 past days, 1 difference, 0 error terms.</li>
+</ul>
+<h4>6. Exponential Smoothing (Holt's Linear Trend)</h4>
+<ul>
+<li>Weighted average where weights decay exponentially the further back in time you go.</li>
+<li>Holt's method captures both <strong>Level</strong> and <strong>Trend</strong>.</li>
+</ul>
+<h4>7. Why are stock forecasts usually flat?</h4>
+<p>Stock prices resemble a <strong>random walk</strong> (efficient market hypothesis). The mathematically best forecast is "approximately today's price plus minor drift", and the 95% confidence interval widens like a cone over time!</p>
+<hr />
+<h3>Key Numbers to Remember</h3>
+<ul>
+<li>Data: <strong>10,238 trading days</strong> (Microsoft / MSFT stock data, 1986–2026).</li>
+<li>Golden Crosses: <strong>114 upward crossovers</strong> of MA20 over MA50.</li>
+<li>ADF <code>p</code>-value on raw price: <strong>0.999</strong> (NOT stationary).</li>
+<li>ADF <code>p</code>-value on 1st difference: <strong>0.0000</strong> (Stationary! Justifies <code>d=1</code>).</li>
+<li>Forecast Horizon: <strong>30 business days</strong>.</li>
+<li>Test performance: Both ARIMA and Exponential Smoothing achieve <strong>~5% MAPE</strong>.</li>
+</ul>
+<hr />
+<h3>Quick Viva Q&amp;A</h3>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Best Answer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Why must time series test sets be at the end?</td>
+<td>Random splits cause data leakage by letting future data train past predictions.</td>
+</tr>
+<tr>
+<td>What does <code>d=1</code> mean in ARIMA(5, 1, 0)?</td>
+<td>The series was differenced once (<code>y_t - y_{t-1}</code>) to make it stationary.</td>
+</tr>
+<tr>
+<td>What is the ADF test null hypothesis?</td>
+<td>That the series has a unit root (is non-stationary). <code>p &lt; 0.05</code> rejects it.</td>
+</tr>
+<tr>
+<td>What is <code>asfreq("B").ffill()</code>?</td>
+<td>Enforces business-day frequency and forward-fills missing days (holidays/weekends).</td>
+</tr>
+<tr>
+<td>RMSE vs MAE vs MAPE?</td>
+<td>MAE is average absolute dollar error; RMSE penalizes large errors more; MAPE is error as a percentage.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>🗺️ DMV Practicals Cheat Sheet (All 7 at a Glance)</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Topic</th>
+<th>Key Operation</th>
+<th>Dataset</th>
+<th>Main Method / Tool</th>
+<th>Key Result / Metric</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1</strong></td>
+<td>Multi-Format Sales</td>
+<td>Load &amp; Unify</td>
+<td>CSV, Excel, JSON (7 rows)</td>
+<td><code>pd.concat()</code>, <code>drop_duplicates</code></td>
+<td><code>22,110 Total Revenue</td>
+</tr>
+<tr>
+<td><strong>2</strong></td>
+<td>Weather API</td>
+<td>Web REST API</td>
+<td>OpenWeatherMap (40 readings)</td>
+<td><code>requests.get()</code>, nested JSON</td>
+<td>Temp vs Humid </code>r \approx -0.95<code></td>
+</tr>
+<tr>
+<td><strong>3</strong></td>
+<td>Telecom Churn</td>
+<td>Cleaning &amp; Prep</td>
+<td>Telco Churn (7,043 rows)</td>
+<td><code>to_numeric</code>, <code>clip</code>, <code>get_dummies</code></td>
+<td>26.5% churn, 0 nulls left</td>
+</tr>
+<tr>
+<td><strong>4</strong></td>
+<td>Real Estate</td>
+<td>Data Wrangling</td>
+<td>CA Housing (20,640 rows)</td>
+<td><code>merge(how='left')</code>, <code>pd.cut()</code></td>
+<td>2,186 expensive &amp; new homes</td>
+</tr>
+<tr>
+<td><strong>5</strong></td>
+<td>AQI Trends</td>
+<td>Visualization</td>
+<td>Delhi Air Quality (365 days)</td>
+<td>Matplotlib subplots, rolling mean</td>
+<td>PM2.5 correlation with AQI: 0.95</td>
+</tr>
+<tr>
+<td><strong>6</strong></td>
+<td>Retail Sales</td>
+<td>Aggregation</td>
+<td>Superstore (9,994 rows)</td>
+<td><code>groupby()</code>, <code>unstack()</code></td>
+<td>West region #1 (31.6% share)</td>
+</tr>
+<tr>
+<td><strong>7</strong></td>
+<td>Stock Analysis</td>
+<td>Time Series</td>
+<td>Stock Prices (10,238 days)</td>
+<td>ADF test, ARIMA(5,1,0), Holt</td>
+<td></code>p=0.000$ on diff, MAPE ~5%</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<div class="alert-box" style="border-left: 4px solid #e65100; background: #fff3e0;"><strong>[IMPORTANT]</strong> > **Universal Pandas Checklist for DMV Practicals**:</div>
+
+<blockquote>
+<ol>
+<li><code>df.info()</code> &amp; <code>df.shape</code> — check column types &amp; size</li>
+<li><code>df.isnull().sum()</code> — count missing values</li>
+<li><code>df.drop_duplicates()</code> — clean repeated rows</li>
+<li><code>pd.to_datetime()</code> — always convert date text before time operations</li>
+<li><code>df.groupby().agg()</code> — for any group summary</li>
+<li><code>plt.tight_layout()</code> &amp; <code>plt.show()</code> — cleanly format any plot</li>
+</ol>
+</blockquote>
+<p>Good luck with your practical exam! You've got this! 🌟</p>
+</body>
+</html>
